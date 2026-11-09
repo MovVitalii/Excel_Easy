@@ -86,7 +86,7 @@ G.S=[[1,2],[2,4],[3,5],[4,4],[5,6]];G.D=[[ds(2026,1,15),ds(2026,3,20)]];G.Z=[[0.
 const L=[
 ["Podstawy","SUM","Dodaje liczby.",`SUM(C1:C5)`,"Zsumuj ilości (kolumna D).",`SUM(D1:D5)`,"T"],
 ["Podstawy","AVERAGE","Średnia: suma podzielona przez liczbę elementów.",`AVERAGE(C1:C5)`,"Oblicz średnią ilość (kolumna D).",`AVERAGE(D1:D5)`,"T"],
-["Podstawy","MIN / MAX","MIN to najmniejsza liczba, MAX – największa.",`MAX(C1:C5)`,"Znajdź najmniejszą ilość(kolumna D).",`MIN(D1:D5)`,"T"],
+["Podstawy","MIN / MAX","MIN to najmniejsza liczba, MAX – największa.",`MAX(C1:C5)`,"Znajdź najmniejszą ilość.",`MIN(D1:D5)`,"T"],
 ["Podstawy","COUNT / COUNTA","COUNT liczy liczby, COUNTA – wszystkie niepuste komórki.",`COUNTA(A1:A5)`,"Policz liczby w kolumnie C (COUNT).",`COUNT(C1:C5)`,"T"],
 ["Podstawy","ROUND","Zaokrągla liczbę do wybranej liczby miejsc po przecinku.",`ROUND(10/3,2)`,"Zaokrąglij średnią cen z C1:C4 do liczby całkowitej.",`ROUND(AVERAGE(C1:C4),0)`,"T"],
 ["Warunki","SUMIF","Sumuje tylko to, co spełnia warunek.",`SUMIF(B1:B5,"Owoce",D1:D5)`,"Zsumuj ilości dla Warzyw.",`SUMIF(B1:B5,"Warzywa",D1:D5)`,"T"],
@@ -221,7 +221,7 @@ const $=s=>document.querySelector(s);let cur=0,done=[];try{done=JSON.parse(local
 let score=0;try{score=+localStorage.getItem('xlp')||0}catch(e){}
 const save=()=>{try{localStorage.setItem('xl',JSON.stringify(done));localStorage.setItem('xlp',score)}catch(e){}};
 const dn=()=>L.filter(l=>done.includes(l[1])).length;
-const col=n=>String.fromCharCode(65+n),show=v=>v===true?'TRUE':v===false?'FALSE':String(v);
+const col=n=>String.fromCharCode(65+n),show=v=>v===true?'TRUE':v===false?'FALSE':v===''?'(pusto)':typeof v=='number'?String(Math.round(v*1e6)/1e6):String(v),esc=x=>String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 function menu(){let h='',g='';L.forEach((l,i)=>{if(l[0]!=g){g=l[0];h+=`<h3>${g}</h3>`}h+=`<button class="${i==cur?'on ':''}${done.includes(L[i][1])?'ok':''}" onclick="go(${i})">${i+1}. ${l[1]}</button>`});
 $('#menu').innerHTML=h;$('#pb').style.width=dn()/L.length*100+'%';$('#xp').textContent=`${dn()}/${L.length} lekcji`;$('#pts').textContent=score}
 function grid(d){const g=G[d];return `<table><tr><th></th>${g[0].map((_,c)=>`<th>${col(c)}</th>`).join('')}</tr>${g.map((r,i)=>`<tr><th>${i+1}</th>${r.map(v=>`<td>${d=='D'?dd(v).toISOString().slice(0,10):v}</td>`).join('')}</tr>`).join('')}</table>`}
@@ -245,7 +245,7 @@ if(!same(s,u))why='wynik';else{let inv=true;for(const v of vars(g)){let sv;try{s
 if(!why&&inv){const uf=fns(val),miss=[...new Set(fns(l[5]))].filter(f=>!uf.includes(f));if(miss.length)why='funkcja:'+miss.join(', ')}}
 if(!why){const p=win();r.textContent=`Dobrze! Wynik: ${show(u)}.`+(p?' +1 pkt':'')}
 else{r.className='msg n';r.textContent=why=='wynik'?`Twój wynik: ${show(u)}. Spróbuj jeszcze raz.`:why=='ogólność'?`Wynik się zgadza (${show(u)}), ale formuła nie liczy tego, o co pytamy – działa tylko przypadkiem. Użyj odwołań do danych i właściwych funkcji.`:`Wynik się zgadza, ale użyj w formule: ${why.slice(8)}.`;if(mark(false))r.textContent+=' −1 pkt'}}
-function hint(){$('#r').className='msg';$('#r').innerHTML=`Rozwiązanie: <code>=${L[cur][5]}</code>`}
+function hint(){const l=L[cur];let v='';try{v=show(ev(l[5],G[l[6]]))}catch(e){v='błąd'}$('#r').className='msg';$('#r').innerHTML=`Rozwiązanie: <code>=${esc(l[5])}</code><br>Wynik tej formuły: <b>${esc(v)}</b>`}
 function pick(k){const l=L[cur],r=$('#r');if(k==l[6]){const p=win();r.textContent='Dobrze!'+(p?' +1 pkt':'')}else{r.className='msg n';r.textContent='Niestety nie. Spróbuj jeszcze raz.'+(mark(false)?' −1 pkt':'')}}
 function toc(q=''){const n=dn(),qq=q.toLowerCase();let h=`<h2>Spis treści</h2><div class="grp">${n}/${L.length} lekcji ukończonych · Punkty: ${score}</div><div class="bar big"><i style="width:${n/L.length*100}%"></i></div>
 <div class="fx" style="margin:12px 0"><b>Szukaj</b><input id="q" placeholder="np. VLOOKUP, tabela przestawna…" value="${q.replace(/"/g,'&quot;')}" oninput="toc(this.value)"></div>`;
