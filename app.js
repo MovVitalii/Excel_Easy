@@ -218,11 +218,12 @@ Z(TE,"IRR","Wewnętrzna stopa zwrotu: stopa, przy której NPV = 0.","Czym jest I
 const ORD=["Podstawy","Warunki","Tekst","Daty","Wyszukiwanie","Tablice dynamiczne","Statystyka","Finanse",P,S2,AN,"Narzędzia",WZ,PQ,DX,AU,SK,TE];L.sort((a,b)=>ORD.indexOf(a[0])-ORD.indexOf(b[0]));
 /* ===== Interfejs ===== */
 const $=s=>document.querySelector(s);let cur=0,done=[];try{done=JSON.parse(localStorage.getItem('xl')||'[]').filter(x=>typeof x=='string')}catch(e){}
-const save=()=>{try{localStorage.setItem('xl',JSON.stringify(done))}catch(e){}};
+let score=0;try{score=+localStorage.getItem('xlp')||0}catch(e){}
+const save=()=>{try{localStorage.setItem('xl',JSON.stringify(done));localStorage.setItem('xlp',score)}catch(e){}};
 const dn=()=>L.filter(l=>done.includes(l[1])).length;
 const col=n=>String.fromCharCode(65+n),show=v=>v===true?'TRUE':v===false?'FALSE':String(v);
 function menu(){let h='',g='';L.forEach((l,i)=>{if(l[0]!=g){g=l[0];h+=`<h3>${g}</h3>`}h+=`<button class="${i==cur?'on ':''}${done.includes(L[i][1])?'ok':''}" onclick="go(${i})">${i+1}. ${l[1]}</button>`});
-$('#menu').innerHTML=h;$('#pb').style.width=dn()/L.length*100+'%';$('#xp').textContent=`${dn()}/${L.length} lekcji · ${dn()*10} XP`}
+$('#menu').innerHTML=h;$('#pb').style.width=dn()/L.length*100+'%';$('#xp').textContent=`${dn()}/${L.length} lekcji`;$('#pts').textContent=score}
 function grid(d){const g=G[d];return `<table><tr><th></th>${g[0].map((_,c)=>`<th>${col(c)}</th>`).join('')}</tr>${g.map((r,i)=>`<tr><th>${i+1}</th>${r.map(v=>`<td>${d=='D'?dd(v).toISOString().slice(0,10):v}</td>`).join('')}</tr>`).join('')}</table>`}
 function go(i){cur=i;try{history.replaceState(null,'','#'+(i+1))}catch(e){}const l=L[i],quiz=l[3]===null;let h=`<h2>${l[1]}</h2><div class="grp">${l[0]}</div><div class="box"><div class="lbl">Wyjaśnienie</div>${l[2]}</div>`;
 if(quiz){h+=`<div class="box"><div class="lbl">Zadanie</div>${l[4]}${l[5].map((o,k)=>`<button class="opt" onclick="pick(${k})">${o}</button>`).join('')}<div class="msg" id="r"></div></div>`}
@@ -232,24 +233,26 @@ h+=`<div class="box ex"><div class="lbl">Przykład</div><code>=${l[3]}</code> �
 <div class="row"><button class="b p" onclick="chk()">Sprawdź</button><button class="b" onclick="hint()">Pokaż rozwiązanie</button></div><div class="msg" id="r"></div></div>`}
 h+=`<div class="row"><button class="b" onclick="toc()">Spis treści</button>${i>0?`<button class="b" onclick="go(${i-1})">Wstecz</button>`:''}${i<L.length-1?`<button class="b p" onclick="go(${i+1})">Dalej</button>`:''}</div>`;
 $('#m').innerHTML=h;menu();const f=$('#f');if(f)f.focus()}
-function win(){if(!done.includes(L[cur][1])){done.push(L[cur][1]);save()}menu();$('#r').className='msg y'}
-function chk(){const l=L[cur],g=G[l[6]],r=$('#r');if($('#f').value.trim()[0]!='='){r.className='msg n';r.textContent='Formuła musi zaczynać się od znaku =, np. =SUM(A1:A5).';return}let u;try{u=ev($('#f').value,g)}catch(e){r.className='msg n';r.textContent='Formuła zawiera błąd. Sprawdź nazwy funkcji, nawiasy i przecinki.';return}
+function mark(ok){const t=L[cur][1];if(done.includes(t))return 0;score+=ok?1:-1;if(ok)done.push(t);save();menu();return ok?1:-1}
+function win(){const p=mark(true);$('#r').className='msg y';return p}
+function resetAll(){if(confirm('Zresetować cały postęp i punkty?')){done=[];score=0;save();go(0)}}
+function chk(){const l=L[cur],g=G[l[6]],r=$('#r');if($('#f').value.trim()[0]!='='){r.className='msg n';r.textContent='Formuła musi zaczynać się od znaku =, np. =SUM(A1:A5).';return}let u;try{u=ev($('#f').value,g)}catch(e){r.className='msg n';r.textContent='Formuła zawiera błąd. Sprawdź nazwy funkcji, nawiasy i przecinki.'+(mark(false)?' −1 pkt':'');return}
 const same=(a,b)=>typeof a=='number'&&typeof b=='number'?Math.abs(a-b)<=1e-9*Math.max(1,Math.abs(a),Math.abs(b)):typeof a==typeof b&&eq(a,b);
 const vars=g=>[1,2,3].map(k=>g.map((r,i)=>r.map((v,j)=>typeof v=='number'?v+k*3+((i*2+j*3+k)%5)+1:v)));
 const fns=x=>x.toUpperCase().match(/[A-Z][A-Z0-9.]*(?=\()/g)||[];
 const s=ev(l[5],g);let why='',val=$('#f').value;
 if(!same(s,u))why='wynik';else{let inv=true;for(const v of vars(g)){let sv;try{sv=ev(l[5],v)}catch(e){continue}if(!same(sv,s))inv=false;let uv;try{uv=ev(val,v)}catch(e){why='ogólność';break}if(!same(sv,uv)){why='ogólność';break}}
 if(!why&&inv){const uf=fns(val),miss=[...new Set(fns(l[5]))].filter(f=>!uf.includes(f));if(miss.length)why='funkcja:'+miss.join(', ')}}
-if(!why){r.className='msg y';r.textContent=`Dobrze! Wynik: ${show(u)}. +10 XP`;win()}
-else{r.className='msg n';r.textContent=why=='wynik'?`Twój wynik: ${show(u)}. Spróbuj jeszcze raz.`:why=='ogólność'?`Wynik się zgadza (${show(u)}), ale formuła nie liczy tego, o co pytamy – działa tylko przypadkiem. Użyj odwołań do danych i właściwych funkcji.`:`Wynik się zgadza, ale użyj w formule: ${why.slice(8)}.`}}
+if(!why){const p=win();r.textContent=`Dobrze! Wynik: ${show(u)}.`+(p?' +1 pkt':'')}
+else{r.className='msg n';r.textContent=why=='wynik'?`Twój wynik: ${show(u)}. Spróbuj jeszcze raz.`:why=='ogólność'?`Wynik się zgadza (${show(u)}), ale formuła nie liczy tego, o co pytamy – działa tylko przypadkiem. Użyj odwołań do danych i właściwych funkcji.`:`Wynik się zgadza, ale użyj w formule: ${why.slice(8)}.`;if(mark(false))r.textContent+=' −1 pkt'}}
 function hint(){$('#r').className='msg';$('#r').innerHTML=`Rozwiązanie: <code>=${L[cur][5]}</code>`}
-function pick(k){const l=L[cur],r=$('#r');if(k==l[6]){r.textContent='Dobrze! +10 XP';win()}else{r.className='msg n';r.textContent='Niestety nie. Spróbuj jeszcze raz.'}}
-function toc(q=''){const n=dn(),qq=q.toLowerCase();let h=`<h2>Spis treści</h2><div class="grp">${n}/${L.length} lekcji ukończonych · ${n*10} XP</div><div class="bar big"><i style="width:${n/L.length*100}%"></i></div>
+function pick(k){const l=L[cur],r=$('#r');if(k==l[6]){const p=win();r.textContent='Dobrze!'+(p?' +1 pkt':'')}else{r.className='msg n';r.textContent='Niestety nie. Spróbuj jeszcze raz.'+(mark(false)?' −1 pkt':'')}}
+function toc(q=''){const n=dn(),qq=q.toLowerCase();let h=`<h2>Spis treści</h2><div class="grp">${n}/${L.length} lekcji ukończonych · Punkty: ${score}</div><div class="bar big"><i style="width:${n/L.length*100}%"></i></div>
 <div class="fx" style="margin:12px 0"><b>Szukaj</b><input id="q" placeholder="np. VLOOKUP, tabela przestawna…" value="${q.replace(/"/g,'&quot;')}" oninput="toc(this.value)"></div>`;
 const gs=[...new Set(L.map(l=>l[0]))];gs.forEach(g=>{const it=L.map((l,i)=>[l,i]).filter(([l])=>l[0]==g),d=it.filter(([l])=>done.includes(l[1])).length,sh=it.filter(([l])=>!qq||l[1].toLowerCase().includes(qq)||l[2].toLowerCase().includes(qq));
 if(!sh.length)return;h+=`<div class="box"><div class="lbl">${g} <span class="cnt">${d}/${it.length}</span></div><div class="bar"><i style="width:${d/it.length*100}%"></i></div>`+
 sh.map(([l,i])=>`<button class="tr${done.includes(l[1])?' ok':''}${i==cur?' on':''}" onclick="go(${i})"><span class="no">${i+1}</span><span class="tt">${l[1]}</span><span class="ty">${l[3]===null?'test':'formuła'}</span><span class="st">${done.includes(l[1])?'✓':''}</span></button>`).join('')+`</div>`});
-if(!$('#q')||true){h+=`<div class="row"><button class="b" onclick="if(confirm('Zresetować cały postęp?')){done=[];save();toc()}">Resetuj postęp</button></div>`}
+if(!$('#q')||true){h+=`<div class="row"><button class="b" onclick="resetAll()">Resetuj postęp</button></div>`}
 $('#m').innerHTML=h;menu();const f=$('#q');if(f){f.focus();f.setSelectionRange(q.length,q.length)}}
 addEventListener('hashchange',()=>{const k=+location.hash.slice(1);if(k>=1&&k<=L.length&&k-1!=cur)go(k-1)});
 const h0=+location.hash.slice(1);go(h0>=1&&h0<=L.length?h0-1:(dn()<L.length?Math.max(0,[...L.keys()].find(i=>!done.includes(L[i][1]))):0));
