@@ -104,6 +104,7 @@ const L=[
 ["Wyszukiwanie","VLOOKUP","Szuka wartości w pierwszej kolumnie i zwraca dane z wybranej kolumny.",`VLOOKUP("Cebula",A1:D5,3,FALSE)`,"Znajdź ilość Gruszki.",`VLOOKUP("Gruszka",A1:D5,4,FALSE)`,"T"],
 ["Wyszukiwanie","INDEX + MATCH","MATCH znajduje pozycję, INDEX oddaje wartość z tej pozycji.",`INDEX(C1:C5,MATCH("Cebula",A1:A5,0))`,"Znajdź ilość Śliwki.",`INDEX(D1:D5,MATCH("Śliwka",A1:A5,0))`,"T"],
 ["Wyszukiwanie","XLOOKUP","Nowoczesny VLOOKUP: szukasz w jednej kolumnie, wynik bierzesz z innej.",`XLOOKUP("Marchew",A1:A5,C1:C5)`,"Podaj kategorię Gruszki; gdy brak – „brak”.",`XLOOKUP("Gruszka",A1:A5,B1:B5,"brak")`,"T"]];
+const H={T:['Produkt','Kategoria','Cena (zł)','Ilość (szt.)'],X:['Imię i nazwisko','E-mail'],S:['x','y'],D:['Data początkowa','Data końcowa'],Z:['Stopa','Liczba okresów','Kwota kredytu'],B:['Kolumna 1','Kolumna 2']};
 const W=(g,t,e,x,q,s,d)=>L.push([g,t,e,x,q,s,d]),Z=(g,t,e,q,o,a)=>L.push([g,t,e,null,q,o,a]);
 W("Podstawy","MEDIAN","Mediana to środkowa wartość po posortowaniu.",`MEDIAN(D1:D5)`,"Znajdź medianę cen (kolumna C).",`MEDIAN(C1:C5)`,"T");
 W("Podstawy","MOD / INT / ABS","MOD to reszta z dzielenia, INT odcina ułamek, ABS usuwa minus.",`MOD(10,3)`,"Reszta z dzielenia sumy ilości (D) przez 7.",`MOD(SUM(D1:D5),7)`,"T");
@@ -224,7 +225,7 @@ const dn=()=>L.filter(l=>done.includes(l[1])).length;
 const col=n=>String.fromCharCode(65+n),show=v=>v===true?'TRUE':v===false?'FALSE':v===''?'(pusto)':typeof v=='number'?String(Math.round(v*1e6)/1e6):String(v),esc=x=>String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 function menu(){let h='',g='';L.forEach((l,i)=>{if(l[0]!=g){g=l[0];h+=`<h3>${g}</h3>`}h+=`<button class="${i==cur?'on ':''}${done.includes(L[i][1])?'ok':''}" onclick="go(${i})">${i+1}. ${l[1]}</button>`});
 $('#menu').innerHTML=h;$('#pb').style.width=dn()/L.length*100+'%';$('#xp').textContent=`${dn()}/${L.length} lekcji`;$('#pts').textContent=score}
-function grid(d){const g=G[d];return `<table><tr><th></th>${g[0].map((_,c)=>`<th>${col(c)}</th>`).join('')}</tr>${g.map((r,i)=>`<tr><th>${i+1}</th>${r.map(v=>`<td>${d=='D'?dd(v).toISOString().slice(0,10):v}</td>`).join('')}</tr>`).join('')}</table>`}
+function grid(d){const g=G[d];return `<table><tr><th></th>${g[0].map((_,c)=>`<th>${col(c)}${(H[d]||[])[c]?`<small>${H[d][c]}</small>`:''}</th>`).join('')}</tr>${g.map((r,i)=>`<tr><th>${i+1}</th>${r.map(v=>`<td>${d=='D'?dd(v).toISOString().slice(0,10):v}</td>`).join('')}</tr>`).join('')}</table><div class="cap">Pod literami kolumn podano, co zawiera każda kolumna. W formułach używasz liter i numerów wierszy.</div>`}
 function go(i){cur=i;try{history.replaceState(null,'','#'+(i+1))}catch(e){}const l=L[i],quiz=l[3]===null;let h=`<h2>${l[1]}</h2><div class="grp">${l[0]}</div><div class="box"><div class="lbl">Wyjaśnienie</div>${l[2]}</div>`;
 if(quiz){h+=`<div class="box"><div class="lbl">Zadanie</div>${l[4]}${l[5].map((o,k)=>`<button class="opt" onclick="pick(${k})">${o}</button>`).join('')}<div class="msg" id="r"></div></div>`}
 else{let ex='';try{ex=show(ev(l[3],G[l[6]]))}catch(e){}
