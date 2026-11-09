@@ -233,7 +233,7 @@ h+=`<div class="box ex"><div class="lbl">Przykład</div><code>=${l[3]}</code> �
 h+=`<div class="row"><button class="b" onclick="toc()">Spis treści</button>${i>0?`<button class="b" onclick="go(${i-1})">Wstecz</button>`:''}${i<L.length-1?`<button class="b p" onclick="go(${i+1})">Dalej</button>`:''}</div>`;
 $('#m').innerHTML=h;menu();const f=$('#f');if(f)f.focus()}
 function win(){if(!done.includes(L[cur][1])){done.push(L[cur][1]);save()}menu();$('#r').className='msg y'}
-function chk(){const l=L[cur],g=G[l[6]],r=$('#r');let u;try{u=ev($('#f').value,g)}catch(e){r.className='msg n';r.textContent='Formuła zawiera błąd. Sprawdź nazwy funkcji, nawiasy i przecinki.';return}
+function chk(){const l=L[cur],g=G[l[6]],r=$('#r');if($('#f').value.trim()[0]!='='){r.className='msg n';r.textContent='Formuła musi zaczynać się od znaku =, np. =SUM(A1:A5).';return}let u;try{u=ev($('#f').value,g)}catch(e){r.className='msg n';r.textContent='Formuła zawiera błąd. Sprawdź nazwy funkcji, nawiasy i przecinki.';return}
 const s=ev(l[5],g),good=typeof s=='number'&&typeof u=='number'?Math.abs(s-u)<1e-9:eq(s,u)&&typeof s==typeof u;
 if(good){r.textContent=`Dobrze! Wynik: ${show(u)}. +10 XP`;win()}else{r.className='msg n';r.textContent=`Twój wynik: ${show(u)}. Spróbuj jeszcze raz.`}}
 function hint(){$('#r').className='msg';$('#r').innerHTML=`Rozwiązanie: <code>=${L[cur][5]}</code>`}
@@ -247,4 +247,3 @@ if(!$('#q')||true){h+=`<div class="row"><button class="b" onclick="if(confirm('Z
 $('#m').innerHTML=h;menu();const f=$('#q');if(f){f.focus();f.setSelectionRange(q.length,q.length)}}
 addEventListener('hashchange',()=>{const k=+location.hash.slice(1);if(k>=1&&k<=L.length&&k-1!=cur)go(k-1)});
 const h0=+location.hash.slice(1);go(h0>=1&&h0<=L.length?h0-1:(dn()<L.length?Math.max(0,[...L.keys()].find(i=>!done.includes(L[i][1]))):0));
-
