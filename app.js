@@ -234,8 +234,14 @@ h+=`<div class="row"><button class="b" onclick="toc()">Spis treści</button>${i>
 $('#m').innerHTML=h;menu();const f=$('#f');if(f)f.focus()}
 function win(){if(!done.includes(L[cur][1])){done.push(L[cur][1]);save()}menu();$('#r').className='msg y'}
 function chk(){const l=L[cur],g=G[l[6]],r=$('#r');if($('#f').value.trim()[0]!='='){r.className='msg n';r.textContent='Formuła musi zaczynać się od znaku =, np. =SUM(A1:A5).';return}let u;try{u=ev($('#f').value,g)}catch(e){r.className='msg n';r.textContent='Formuła zawiera błąd. Sprawdź nazwy funkcji, nawiasy i przecinki.';return}
-const s=ev(l[5],g),good=typeof s=='number'&&typeof u=='number'?Math.abs(s-u)<1e-9:eq(s,u)&&typeof s==typeof u;
-if(good){r.textContent=`Dobrze! Wynik: ${show(u)}. +10 XP`;win()}else{r.className='msg n';r.textContent=`Twój wynik: ${show(u)}. Spróbuj jeszcze raz.`}}
+const same=(a,b)=>typeof a=='number'&&typeof b=='number'?Math.abs(a-b)<=1e-9*Math.max(1,Math.abs(a),Math.abs(b)):typeof a==typeof b&&eq(a,b);
+const vars=g=>[1,2,3].map(k=>g.map((r,i)=>r.map((v,j)=>typeof v=='number'?v+k*3+((i*2+j*3+k)%5)+1:v)));
+const fns=x=>x.toUpperCase().match(/[A-Z][A-Z0-9.]*(?=\()/g)||[];
+const s=ev(l[5],g);let why='',val=$('#f').value;
+if(!same(s,u))why='wynik';else{let inv=true;for(const v of vars(g)){let sv;try{sv=ev(l[5],v)}catch(e){continue}if(!same(sv,s))inv=false;let uv;try{uv=ev(val,v)}catch(e){why='ogólność';break}if(!same(sv,uv)){why='ogólność';break}}
+if(!why&&inv){const uf=fns(val),miss=[...new Set(fns(l[5]))].filter(f=>!uf.includes(f));if(miss.length)why='funkcja:'+miss.join(', ')}}
+if(!why){r.className='msg y';r.textContent=`Dobrze! Wynik: ${show(u)}. +10 XP`;win()}
+else{r.className='msg n';r.textContent=why=='wynik'?`Twój wynik: ${show(u)}. Spróbuj jeszcze raz.`:why=='ogólność'?`Wynik się zgadza (${show(u)}), ale formuła nie liczy tego, o co pytamy – działa tylko przypadkiem. Użyj odwołań do danych i właściwych funkcji.`:`Wynik się zgadza, ale użyj w formule: ${why.slice(8)}.`}}
 function hint(){$('#r').className='msg';$('#r').innerHTML=`Rozwiązanie: <code>=${L[cur][5]}</code>`}
 function pick(k){const l=L[cur],r=$('#r');if(k==l[6]){r.textContent='Dobrze! +10 XP';win()}else{r.className='msg n';r.textContent='Niestety nie. Spróbuj jeszcze raz.'}}
 function toc(q=''){const n=dn(),qq=q.toLowerCase();let h=`<h2>Spis treści</h2><div class="grp">${n}/${L.length} lekcji ukończonych · ${n*10} XP</div><div class="bar big"><i style="width:${n/L.length*100}%"></i></div>
@@ -247,4 +253,3 @@ if(!$('#q')||true){h+=`<div class="row"><button class="b" onclick="if(confirm('Z
 $('#m').innerHTML=h;menu();const f=$('#q');if(f){f.focus();f.setSelectionRange(q.length,q.length)}}
 addEventListener('hashchange',()=>{const k=+location.hash.slice(1);if(k>=1&&k<=L.length&&k-1!=cur)go(k-1)});
 const h0=+location.hash.slice(1);go(h0>=1&&h0<=L.length?h0-1:(dn()<L.length?Math.max(0,[...L.keys()].find(i=>!done.includes(L[i][1]))):0));
-
