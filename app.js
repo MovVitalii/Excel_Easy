@@ -86,7 +86,7 @@ G.S=[[1,2],[2,4],[3,5],[4,4],[5,6]];G.D=[[ds(2026,1,15),ds(2026,3,20)]];G.Z=[[0.
 const L=[
 ["Podstawy","SUM","Dodaje liczby.",`SUM(C1:C5)`,"Zsumuj ilości (kolumna D).",`SUM(D1:D5)`,"T"],
 ["Podstawy","AVERAGE","Średnia: suma podzielona przez liczbę elementów.",`AVERAGE(C1:C5)`,"Oblicz średnią ilość (kolumna D).",`AVERAGE(D1:D5)`,"T"],
-["Podstawy","MIN / MAX","MIN to najmniejsza liczba, MAX – największa.",`MAX(C1:C5)`,"Znajdź najmniejszą ilość.",`MIN(D1:D5)`,"T"],
+["Podstawy","MIN / MAX","MIN to najmniejsza liczba, MAX – największa.",`MAX(C1:C5)`,"Znajdź najmniejszą ilość(kolumna D).",`MIN(D1:D5)`,"T"],
 ["Podstawy","COUNT / COUNTA","COUNT liczy liczby, COUNTA – wszystkie niepuste komórki.",`COUNTA(A1:A5)`,"Policz liczby w kolumnie C (COUNT).",`COUNT(C1:C5)`,"T"],
 ["Podstawy","ROUND","Zaokrągla liczbę do wybranej liczby miejsc po przecinku.",`ROUND(10/3,2)`,"Zaokrąglij średnią cen z C1:C4 do liczby całkowitej.",`ROUND(AVERAGE(C1:C4),0)`,"T"],
 ["Warunki","SUMIF","Sumuje tylko to, co spełnia warunek.",`SUMIF(B1:B5,"Owoce",D1:D5)`,"Zsumuj ilości dla Warzyw.",`SUMIF(B1:B5,"Warzywa",D1:D5)`,"T"],
