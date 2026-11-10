@@ -113,10 +113,10 @@ W("Podstawy","RANK","Podaje miejsce liczby na liście (1 = największa).",`RANK(
 W("Podstawy","LARGE / SMALL","LARGE(zakres;k) to k-ta największa liczba, SMALL – k-ta najmniejsza.",`LARGE(D1:D5,2)`,"Znajdź trzecią najmniejszą ilość.",`SMALL(D1:D5,3)`,"T");
 W("Podstawy","COUNTBLANK","Liczy puste komórki.",`COUNTBLANK(A1:B3)`,"Policz puste komórki w A1:B3.",`COUNTBLANK(A1:B3)+0`,"B");
 W("Podstawy","SUMPRODUCT","Mnoży zakresy wiersz po wierszu i sumuje wyniki.",`SUMPRODUCT(C1:C5,D1:D5)`,"Wartość (cena × ilość) tylko dla Warzyw.",`SUMPRODUCT((B1:B5="Warzywa")*C1:C5*D1:D5)`,"T");
-W("Podstawy","SUBTOTAL / AGGREGATE","Podsumowują dane pomijając ukryte wiersze. Kod 9 = SUM, 1 = AVERAGE.",`SUBTOTAL(9,D1:D5)`,"Średnia ilość przez SUBTOTAL (kod 1).",`SUBTOTAL(1,D1:D5)`,"T");
+W("Podstawy","SUBTOTAL / AGGREGATE","Podsumowują dane, pomijając wiersze ukryte filtrem. Pierwszy argument to kod działania: 9 = SUM, 1 = AVERAGE, 2 = COUNT, 4 = MAX, 5 = MIN.",`SUBTOTAL(9,D1:D5)`,"Średnia ilość przez SUBTOTAL (kod 1).",`SUBTOTAL(1,D1:D5)`,"T");
 W("Warunki","MAXIFS / MINIFS","Największa / najmniejsza wartość spełniająca warunek.",`MAXIFS(D1:D5,B1:B5,"Owoce")`,"Najmniejsza ilość Warzyw (MINIFS).",`MINIFS(D1:D5,B1:B5,"Warzywa")`,"T");
 W("Warunki","IFS","Sprawdza kolejne warunki bez zagnieżdżania IF.",`IFS(D1>15,"A",D1>5,"B",TRUE,"C")`,"Dla D4: powyżej 15 → „A”, powyżej 5 → „B”, inaczej „C”.",`IFS(D4>15,"A",D4>5,"B",TRUE,"C")`,"T");
-W("Warunki","SWITCH","Wybiera wynik na podstawie dokładnego dopasowania.",`SWITCH(B1,"Owoce","O","Warzywa","W","?")`,"Dla B3: Owoce → 1, Warzywa → 2.",`SWITCH(B3,"Owoce",1,"Warzywa",2)`,"T");
+W("Warunki","SWITCH","Patrzy na wartość i szuka jej na liście par „wartość → wynik”. Gdy znajdzie, podaje przypisany wynik. Ostatni argument bez pary to wynik na wypadek braku dopasowania.",`SWITCH(B1,"Owoce","O","Warzywa","W","?")`,"Dla B3: Owoce → 1, Warzywa → 2.",`SWITCH(B3,"Owoce",1,"Warzywa",2)`,"T");
 W("Warunki","NOT","Odwraca wynik: prawda staje się fałszem.",`NOT(D1>8)`,"Odwróć warunek D2>5.",`NOT(D2>5)`,"T");
 W("Tekst","FIND / SEARCH","Podają pozycję tekstu w tekście. SEARCH nie rozróżnia wielkości liter.",`FIND("@",B1)`,"Na której pozycji jest kropka w B1?",`FIND(".",B1)`,"X");
 W("Tekst","LOWER / PROPER","LOWER – małe litery. PROPER – Każde Słowo Wielką Literą.",`PROPER("jan nowak")`,"Zamień A1 (bez zbędnych spacji) na małe litery.",`LOWER(TRIM(A1))`,"X");
@@ -230,7 +230,7 @@ function go(i){cur=i;try{history.replaceState(null,'','#'+(i+1))}catch(e){}const
 if(quiz){h+=`<div class="box"><div class="lbl">Zadanie</div>${l[4]}${l[5].map((o,k)=>`<button class="opt" onclick="pick(${k})">${o}</button>`).join('')}<div class="msg" id="r"></div></div>`}
 else{let ex='';try{ex=show(ev(l[3],G[l[6]]))}catch(e){}
 h+=`<div class="box ex"><div class="lbl">Przykład</div><code>=${l[3]}</code> → <b>${ex}</b>${grid(l[6])}</div>
-<div class="box"><div class="lbl">Zadanie</div>${l[4]}<div class="fx" style="margin-top:8px"><b>fx</b><input id="f" placeholder="=" autocomplete="off" spellcheck="false" onkeydown="if(event.key=='Enter')chk()"></div>
+<div class="box"><div class="lbl">Zadanie</div>${l[4]}<div class="fx" style="margin-top:8px"><b>fx</b><input id="f" autocomplete="off" spellcheck="false" onkeydown="if(event.key=='Enter')chk()"></div>
 <div class="row"><button class="b p" onclick="chk()">Sprawdź</button><button class="b" onclick="hint()">Pokaż rozwiązanie</button></div><div class="msg" id="r"></div></div>`}
 h+=`<div class="row"><button class="b" onclick="toc()">Spis treści</button>${i>0?`<button class="b" onclick="go(${i-1})">Wstecz</button>`:''}${i<L.length-1?`<button class="b p" onclick="go(${i+1})">Dalej</button>`:''}</div>`;
 $('#m').innerHTML=h;menu();const f=$('#f');if(f)f.focus()}
