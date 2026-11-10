@@ -257,15 +257,15 @@ if(!sh.length)return;h+=`<div class="box"><div class="lbl">${g} <span class="cnt
 sh.map(([l,i])=>`<button class="tr${done.includes(l[1])?' ok':''}${i==cur?' on':''}" onclick="go(${i})"><span class="no">${i+1}</span><span class="tt">${l[1]}</span><span class="ty">${l[3]===null?'test':'formuła'}</span><span class="st">${done.includes(l[1])?'✓':''}</span></button>`).join('')+`</div>`});
 if(!$('#q')||true){h+=`<div class="row"><button class="b" onclick="resetAll()">Resetuj postęp</button></div>`}
 $('#m').innerHTML=h;menu();const f=$('#q');if(f){f.focus();f.setSelectionRange(q.length,q.length)}}
-const MAIL_KEY='95fe3134-bfd9-47e6-9279-c4cf47c2e525';let sending=false;
+const MAIL_KEY='WSTAW_KLUCZ_WEB3FORMS';let sending=false;
 function who(){$('#who').innerHTML=uname?`Użytkownik: <b>${esc(uname)}</b> · <a href="#" onclick="showLogin();return false">zmień</a>`:'';$('#ov').style.display=uname?'none':'flex'}
 function showLogin(){$('#ov').style.display='flex';const i=$('#nm');i.value=uname;i.focus()}
 function doLogin(){const v=$('#nm').value.trim().slice(0,60);if(!v){$('#lerr').textContent='Wpisz swoje imię.';return}uname=v;$('#lerr').textContent='';try{sessionStorage.setItem('xln',uname)}catch(e){}who()}
 function copyRes(b){try{navigator.clipboard.writeText(`${uname} - ${dn()}/${L.length}`);b.textContent='Skopiowano'}catch(e){b.textContent='Skopiuj ręcznie z ekranu'}}
 async function finish(){if(sending)return;if(!uname){showLogin();return}
 const n=dn(),res=`${uname} - ${n}/${L.length}`;let st='',ok=false;sending=true;
-if(MAIL_KEY.startsWith('WSTAW'))st='Wysyłanie e-mailem nie jest jeszcze skonfigurowane.';
-else{try{const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:MAIL_KEY,subject:res,from_name:uname,name:uname,message:`${res}\nPunkty: ${score}`})});const d=await r.json();ok=!!d.success;st=ok?'Wynik został wysłany.':'Nie udało się wysłać wyniku.'}catch(e){st='Nie udało się wysłać wyniku (brak połączenia?).'}}
+if(MAIL_KEY.startsWith('WSTAW'))st='';
+else{try{const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:MAIL_KEY,subject:res,from_name:uname,name:uname,message:`${res}\nPunkty: ${score}`})});const d=await r.json();ok=!!d.success;st=''}catch(e){st=''}}
 sending=false;$('#m').innerHTML=`<h2>Test zakończony</h2><div class="box"><div class="lbl">Twój wynik</div><p style="font-size:22px;margin:6px 0"><b>${esc(res)}</b></p><div>Punkty: ${score}</div><div class="msg ${ok?'y':'n'}">${st}</div>${ok?'':'<div class="row"><button class="b" onclick="copyRes(this)">Skopiuj wynik</button></div>'}</div><div class="row"><button class="b p" onclick="go(cur)">Wróć do nauki</button></div>`}
 addEventListener('hashchange',()=>{const k=+location.hash.slice(1);if(k>=1&&k<=L.length&&k-1!=cur)go(k-1)});
 const h0=+location.hash.slice(1);go(h0>=1&&h0<=L.length?h0-1:(dn()<L.length?Math.max(0,[...L.keys()].find(i=>!done.includes(L[i][1]))):0));
