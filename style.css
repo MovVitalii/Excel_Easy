@@ -34,3 +34,9 @@ button.b.p{background:var(--g);color:#fff}button.b:focus-visible,nav button:focu
 .sc{display:flex;justify-content:space-between;align-items:center;margin:0 0 10px;gap:8px}.sc b{font-size:20px;color:var(--g)}
 .sc button{width:auto;display:inline-block;border:1px solid var(--rd);color:var(--rd);padding:4px 10px;font-size:13px}
 th small{display:block;font-weight:400;font-size:11px;color:#555}.cap{font-size:12px;color:#666}
+
+.who{font-size:13px;color:#555;margin-bottom:6px}.who a{color:var(--g)}
+.fin{display:block;width:100%;margin:0 0 8px;background:var(--g)!important;color:#fff;text-align:center!important;font-weight:600;padding:8px!important;border-radius:4px}
+.ov{position:fixed;inset:0;background:rgba(246,247,244,.97);display:flex;align-items:center;justify-content:center;z-index:10;padding:16px}
+.lb{background:#fff;border:1px solid var(--ln);border-radius:8px;padding:24px;max-width:380px;width:100%}.lb h2{color:var(--g)}
+.lb input{width:100%;font:inherit;padding:9px 10px;border:1px solid var(--ln);border-radius:4px;margin:6px 0}.lb input:focus{outline:2px solid var(--g)}
