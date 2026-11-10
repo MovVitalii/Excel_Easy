@@ -219,12 +219,13 @@ Z(TE,"IRR","Wewnętrzna stopa zwrotu: stopa, przy której NPV = 0.","Czym jest I
 const ORD=["Podstawy","Warunki","Tekst","Daty","Wyszukiwanie","Tablice dynamiczne","Statystyka","Finanse",P,S2,AN,"Narzędzia",WZ,PQ,DX,AU,SK,TE];L.sort((a,b)=>ORD.indexOf(a[0])-ORD.indexOf(b[0]));
 /* ===== Interfejs ===== */
 const $=s=>document.querySelector(s);let cur=0,done=[];try{done=JSON.parse(localStorage.getItem('xl')||'[]').filter(x=>typeof x=='string')}catch(e){}
+let uname='';try{uname=localStorage.getItem('xln')||''}catch(e){}
 let score=0;try{score=+localStorage.getItem('xlp')||0}catch(e){}
 const save=()=>{try{localStorage.setItem('xl',JSON.stringify(done));localStorage.setItem('xlp',score)}catch(e){}};
 const dn=()=>L.filter(l=>done.includes(l[1])).length;
 const col=n=>String.fromCharCode(65+n),show=v=>v===true?'TRUE':v===false?'FALSE':v===''?'(pusto)':typeof v=='number'?String(Math.round(v*1e6)/1e6):String(v),esc=x=>String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 function menu(){let h='',g='';L.forEach((l,i)=>{if(l[0]!=g){g=l[0];h+=`<h3>${g}</h3>`}h+=`<button class="${i==cur?'on ':''}${done.includes(L[i][1])?'ok':''}" onclick="go(${i})">${i+1}. ${l[1]}</button>`});
-$('#menu').innerHTML=h;$('#pb').style.width=dn()/L.length*100+'%';$('#xp').textContent=`${dn()}/${L.length} lekcji`;$('#pts').textContent=score}
+$('#menu').innerHTML=h;$('#pb').style.width=dn()/L.length*100+'%';$('#xp').textContent=`${dn()}/${L.length} lekcji`;$('#pts').textContent=score;who()}
 function grid(d){const g=G[d];return `<table><tr><th></th>${g[0].map((_,c)=>`<th>${col(c)}${(H[d]||[])[c]?`<small>${H[d][c]}</small>`:''}</th>`).join('')}</tr>${g.map((r,i)=>`<tr><th>${i+1}</th>${r.map(v=>`<td>${d=='D'?dd(v).toISOString().slice(0,10):v}</td>`).join('')}</tr>`).join('')}</table><div class="cap">Pod literami kolumn podano, co zawiera każda kolumna. W formułach używasz liter i numerów wierszy.</div>`}
 function go(i){cur=i;try{history.replaceState(null,'','#'+(i+1))}catch(e){}const l=L[i],quiz=l[3]===null;let h=`<h2>${l[1]}</h2><div class="grp">${l[0]}</div><div class="box"><div class="lbl">Wyjaśnienie</div>${l[2]}</div>`;
 if(quiz){h+=`<div class="box"><div class="lbl">Zadanie</div>${l[4]}${l[5].map((o,k)=>`<button class="opt" onclick="pick(${k})">${o}</button>`).join('')}<div class="msg" id="r"></div></div>`}
@@ -255,5 +256,15 @@ if(!sh.length)return;h+=`<div class="box"><div class="lbl">${g} <span class="cnt
 sh.map(([l,i])=>`<button class="tr${done.includes(l[1])?' ok':''}${i==cur?' on':''}" onclick="go(${i})"><span class="no">${i+1}</span><span class="tt">${l[1]}</span><span class="ty">${l[3]===null?'test':'formuła'}</span><span class="st">${done.includes(l[1])?'✓':''}</span></button>`).join('')+`</div>`});
 if(!$('#q')||true){h+=`<div class="row"><button class="b" onclick="resetAll()">Resetuj postęp</button></div>`}
 $('#m').innerHTML=h;menu();const f=$('#q');if(f){f.focus();f.setSelectionRange(q.length,q.length)}}
+const MAIL_KEY='95fe3134-bfd9-47e6-9279-c4cf47c2e525';let sending=false;
+function who(){$('#who').innerHTML=uname?`Użytkownik: <b>${esc(uname)}</b> · <a href="#" onclick="showLogin();return false">zmień</a>`:'';$('#ov').style.display=uname?'none':'flex'}
+function showLogin(){$('#ov').style.display='flex';const i=$('#nm');i.value=uname;i.focus()}
+function doLogin(){const v=$('#nm').value.trim().slice(0,60);if(!v){$('#lerr').textContent='Wpisz swoje imię.';return}uname=v;$('#lerr').textContent='';try{localStorage.setItem('xln',uname)}catch(e){}who()}
+function copyRes(b){try{navigator.clipboard.writeText(`${uname} - ${dn()}/${L.length}`);b.textContent='Skopiowano'}catch(e){b.textContent='Skopiuj ręcznie z ekranu'}}
+async function finish(){if(sending)return;if(!uname){showLogin();return}if(!confirm('Zakończyć test i wysłać wynik?'))return;
+const n=dn(),res=`${uname} - ${n}/${L.length}`;let st='',ok=false;sending=true;
+if(MAIL_KEY.startsWith('WSTAW'))st='Wysyłanie e-mailem nie jest jeszcze skonfigurowane.';
+else{try{const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:MAIL_KEY,subject:res,from_name:uname,name:uname,message:`${res}\nPunkty: ${score}`})});const d=await r.json();ok=!!d.success;st=ok?'Wynik został wysłany.':'Nie udało się wysłać wyniku.'}catch(e){st='Nie udało się wysłać wyniku (brak połączenia?).'}}
+sending=false;$('#m').innerHTML=`<h2>Test zakończony</h2><div class="box"><div class="lbl">Twój wynik</div><p style="font-size:22px;margin:6px 0"><b>${esc(res)}</b></p><div>Punkty: ${score}</div><div class="msg ${ok?'y':'n'}">${st}</div>${ok?'':'<div class="row"><button class="b" onclick="copyRes(this)">Skopiuj wynik</button></div>'}</div><div class="row"><button class="b p" onclick="go(cur)">Wróć do nauki</button></div>`}
 addEventListener('hashchange',()=>{const k=+location.hash.slice(1);if(k>=1&&k<=L.length&&k-1!=cur)go(k-1)});
 const h0=+location.hash.slice(1);go(h0>=1&&h0<=L.length?h0-1:(dn()<L.length?Math.max(0,[...L.keys()].find(i=>!done.includes(L[i][1]))):0));
