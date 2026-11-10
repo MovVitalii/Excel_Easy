@@ -257,7 +257,7 @@ if(!sh.length)return;h+=`<div class="box"><div class="lbl">${g} <span class="cnt
 sh.map(([l,i])=>`<button class="tr${done.includes(l[1])?' ok':''}${i==cur?' on':''}" onclick="go(${i})"><span class="no">${i+1}</span><span class="tt">${l[1]}</span><span class="ty">${l[3]===null?'test':'formuła'}</span><span class="st">${done.includes(l[1])?'✓':''}</span></button>`).join('')+`</div>`});
 if(!$('#q')||true){h+=`<div class="row"><button class="b" onclick="resetAll()">Resetuj postęp</button></div>`}
 $('#m').innerHTML=h;menu();const f=$('#q');if(f){f.focus();f.setSelectionRange(q.length,q.length)}}
-const MAIL_KEY='WSTAW_KLUCZ_WEB3FORMS';let sending=false;
+const MAIL_KEY='95fe3134-bfd9-47e6-9279-c4cf47c2e525';let sending=false;
 function who(){$('#who').innerHTML=uname?`Użytkownik: <b>${esc(uname)}</b> · <a href="#" onclick="showLogin();return false">zmień</a>`:'';$('#ov').style.display=uname?'none':'flex'}
 function showLogin(){$('#ov').style.display='flex';const i=$('#nm');i.value=uname;i.focus()}
 function doLogin(){const v=$('#nm').value.trim().slice(0,60);if(!v){$('#lerr').textContent='Wpisz swoje imię.';return}uname=v;$('#lerr').textContent='';try{sessionStorage.setItem('xln',uname)}catch(e){}who()}
