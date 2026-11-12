@@ -157,7 +157,7 @@ const Q=[["Tabela przestawna","Tabela przestawna (PivotTable) szybko podsumowuje
 ["Power Query: Unpivot","Unpivot zamienia kolumny na wiersze – dane stają się „długie” i łatwe do analizy.","Co robi Unpivot?",["Zamienia kolumny w wiersze","Zamienia wiersze w wykres","Szyfruje dane"],0],
 ["DAX: CALCULATE","CALCULATE liczy miarę w zmienionym kontekście filtrów – najważniejsza funkcja DAX.","Która funkcja DAX zmienia kontekst filtrów?",["LEN","CALCULATE","TODAY"],1]];
 Q.forEach(q=>L.push(["Narzędzia",q[0],q[1],null,q[2],q[3],q[4]]));
-const P="Przygotowanie danych",S2="Struktura i widok",AN="Analiza",WZ="Wizualizacja",PQ="Power Query",DX="DAX",AU="Automatyzacja",SK="Skróty",TE="Funkcje – teoria";
+const P="Przygotowanie danych",S2="Struktura i widok",WZ="Wizualizacja",PQ="Power Query",DX="DAX",AU="Automatyzacja",SK="Skróty",TE="Funkcje – teoria";
 Z(P,"Import danych","Dane → Pobierz dane wczytuje CSV, TXT, strony WWW i bazy danych.","Gdzie zaimportujesz plik CSV?",["Widok → Siatka","Dane → Pobierz dane","Formuły → Nazwy"],1);
 Z(P,"Tekst jako kolumny","Dane → Tekst jako kolumny dzieli tekst po separatorze, np. przecinku.","Co robi „Tekst jako kolumny”?",["Dzieli tekst na kolumny","Łączy kolumny","Zmienia czcionkę"],0);
 Z(P,"Usuń duplikaty","Dane → Usuń duplikaty kasuje powtarzające się wiersze.","Jak szybko usunąć powtórzone wiersze?",["Plik → Drukuj","Wstawianie → Wykres","Dane → Usuń duplikaty"],2);
@@ -172,13 +172,6 @@ Z(S2,"Nazwane zakresy","Nazwa (np. Sprzedaz) zamiast C2:C99 czyni formułę czyt
 Z(S2,"Formatowanie warunkowe","Koloruje komórki według reguł: skale, paski, ikony, własne formuły.","Co zrobi formatowanie warunkowe?",["Zsumuje dane","Usunie wiersze","Pokoloruje komórki wg reguły"],2);
 Z(S2,"Walidacja danych","Dane → Walidacja ogranicza wpisy, np. do listy rozwijanej.","Jak zrobić listę rozwijaną?",["Filtr","Walidacja danych → Lista","Scalanie"],1);
 Z(S2,"Ochrona arkusza","Recenzja → Chroń arkusz blokuje edycję wybranych komórek.","Co robi Chroń arkusz?",["Blokuje edycję komórek","Ukrywa kolumny","Usuwa formuły"],0);
-Z(AN,"Grupowanie dat w tabeli przestawnej","Prawy klik na dacie → Grupuj: lata, kwartały, miesiące.","Jak zrobić podsumowanie miesięczne z dat?",["Użyj COUNT","Usuń daty","Grupuj daty w tabeli przestawnej"],2);
-Z(AN,"Pole obliczeniowe","W tabeli przestawnej dodaje własną formułę na polach.","Do czego Pole obliczeniowe?",["Do wykresów","Do własnej formuły w tabeli przestawnej","Do sortowania"],1);
-Z(AN,"GETPIVOTDATA","Pobiera konkretną wartość z tabeli przestawnej.","Co robi GETPIVOTDATA?",["Pobiera wartość z tabeli przestawnej","Tworzy wykres","Importuje CSV"],0);
-Z(AN,"Szukaj wyniku (Goal Seek)","Dane → Analiza warunkowa → Szukaj wyniku dobiera wartość wejściową do zadanego celu.","Co robi Goal Seek?",["Sortuje","Dobiera wartość wejściową do celu","Łączy tabele"],1);
-Z(AN,"Solver","Szuka najlepszego rozwiązania przy ograniczeniach, np. największy zysk.","Do czego Solver?",["Do importu","Do formatowania","Do optymalizacji z ograniczeniami"],2);
-Z(AN,"Analysis ToolPak","Dodatek ze statystyką opisową, regresją i histogramem.","Co daje Analysis ToolPak?",["Regresję i statystyki opisowe","Nowe czcionki","Szyfrowanie"],0);
-Z(AN,"Tabele danych i scenariusze","Tabela danych liczy wynik dla wielu wartości wejściowych; Menedżer scenariuszy zapisuje warianty założeń.","Co zapisuje Menedżer scenariuszy?",["Wykresy","Warianty założeń","Makra"],1);
 Z(WZ,"Wybór wykresu","Liniowy – trend w czasie; słupkowy – porównanie; punktowy – zależność dwóch liczb; kołowy – udziały.","Który wykres pokaże trend w czasie?",["Kołowy","Punktowy","Liniowy"],2);
 Z(WZ,"Oś pomocnicza","Druga oś łączy serie o różnych skalach, np. sprzedaż i marżę %.","Po co oś pomocnicza?",["Dla koloru","Dla serii o innej skali","Dla tytułu"],1);
 Z(WZ,"Sparklines","Mini-wykresy w komórce: Wstawianie → Wykresy przebiegu w czasie.","Czym są sparklines?",["Mini-wykresami w komórce","Rodzajem formuły","Filtrami"],0);
@@ -216,7 +209,7 @@ Z(TE,"CONFIDENCE.NORM","Zwraca margines błędu do przedziału ufności.","Co ob
 Z(TE,"FREQUENCY","Zlicza, ile wartości wpada w przedziały (kosze) – podstawa histogramu.","Do czego FREQUENCY?",["Do zliczania w przedziałach","Do dat","Do tekstu"],0);
 Z(TE,"LINEST / TREND / GROWTH","LINEST – pełna regresja, TREND – prognoza liniowa, GROWTH – wykładnicza.","Która prognozuje wykładniczo?",["TREND","GROWTH","LINEST"],1);
 Z(TE,"IRR","Wewnętrzna stopa zwrotu: stopa, przy której NPV = 0.","Czym jest IRR?",["Ratą kredytu","Datą","Stopą, przy której NPV = 0"],2);
-const ORD=["Podstawy","Warunki","Tekst","Daty","Wyszukiwanie","Tablice dynamiczne","Statystyka","Finanse",P,S2,AN,"Narzędzia",WZ,PQ,DX,AU,SK,TE];L.sort((a,b)=>ORD.indexOf(a[0])-ORD.indexOf(b[0]));
+const ORD=["Podstawy","Warunki","Tekst","Daty","Wyszukiwanie","Tablice dynamiczne","Statystyka","Finanse",P,S2,"Narzędzia",WZ,PQ,DX,AU,SK,TE];L.sort((a,b)=>ORD.indexOf(a[0])-ORD.indexOf(b[0]));
 const EXTRA={
 "NPV":[`Pieniądz dziś jest wart więcej niż ten sam pieniądz za rok (można go zainwestować). NPV „cofa” przyszłe wpływy do wartości z dzisiaj.`,`Wynik 248,69 zł: trzy wpływy po 100 zł (za 1, 2 i 3 lata) są dziś warte tylko tyle. Obliczenie: 100/1,1 + 100/1,21 + 100/1,331 ≈ 90,91 + 82,64 + 75,13. Jeśli inwestycja kosztuje mniej niż 248,69 zł, to się opłaca.`],
 "PMT":[`Rata to stała kwota płacona co okres, aż spłacisz pożyczkę z odsetkami. Stopa musi być za ten sam okres co rata (przy ratach miesięcznych: stopa roczna ÷ 12).`,`Wynik −556,63: co okres wpłacasz 556,63 zł (minus znaczy „wydatek”). Po 10 okresach spłacisz 5000 zł pożyczki razem z odsetkami; łącznie oddasz ok. 5566 zł.`],
@@ -281,13 +274,6 @@ Object.assign(EXTRA,{
 "Formatowanie warunkowe":[``,`Zaznaczasz kolumnę z ocenami → Narzędzia główne → Formatowanie warunkowe → Reguły wyróżniania → Mniejsze niż 3 → czerwone tło. Każda ocena poniżej 3 sama robi się czerwona, także po zmianie wartości.`],
 "Walidacja danych":[``,`Zaznaczasz B2:B20 → Dane → Walidacja danych → Zezwalaj: Lista → Źródło: Owoce;Warzywa (w polskim Excelu rozdzielasz średnikiem). W każdej komórce pojawia się strzałka z wyborem, a wpisanie „Mięso” zostanie odrzucone.`],
 "Ochrona arkusza":[``,`Komórki do wypełniania odblokowujesz: Formatuj komórki → Ochrona → odznacz „Zablokowana”. Potem Recenzja → Chroń arkusz. Użytkownik zmieni tylko odblokowane komórki, a formuły są bezpieczne.`],
-"Grupowanie dat w tabeli przestawnej":[``,`Sprzedaż ma daty dzienne: 3.01, 15.01, 2.02, 20.02. W tabeli przestawnej klikasz prawym na datę → Grupuj → Miesiące. Zamiast 4 dni widzisz 2 wiersze: styczeń (suma z 3 i 15.01) i luty (suma z 2 i 20.02).`],
-"Pole obliczeniowe":[``,`Pole <code>Wartość = Cena * Ilość</code> liczy się na sumach pól, a nie wiersz po wierszu. Dla Owoców (ceny 3, 4, 5, ilości 10, 5, 7) wynik to (3+4+5)·(10+5+7) = 264, a nie 85. Dobre do wskaźników, np. <code>Marża = Zysk / Sprzedaż</code>. Do iloczynu wiersz po wierszu dodaj kolumnę pomocniczą w danych.`],
-"GETPIVOTDATA":[`Excel wstawia ją sam, gdy w formule klikniesz komórkę tabeli przestawnej.`,`<code>=GETPIVOTDATA("Ilość",$A$3,"Kategoria","Owoce")</code> → 22 (suma ilości dla Owoców). Zmiana układu tabeli nie psuje formuły, bo szuka po nazwach, a nie po adresie komórki.`],
-"Szukaj wyniku (Goal Seek)":[``,`B1 = 50 (cena netto), B2 = <code>=B1*1.23</code> (brutto: 61,5). Chcesz, żeby B2 wyniosło 100. Dane → Analiza warunkowa → Szukaj wyniku: komórka B2, wartość 100, zmieniając B1. Excel podaje B1 ≈ 81,30.`],
-"Solver":[``,`Produkujesz dwa wyroby: A daje 5 zł zysku, B daje 8 zł, a na produkcję masz 100 godzin. Solver szuka, ile sztuk A i B zrobić, by zysk był największy. Ustawiasz: cel (zysk, maksimum), zmienne (liczba sztuk) i ograniczenie (godziny ≤ 100).`],
-"Analysis ToolPak":[``,`Włączasz dodatek (Plik → Opcje → Dodatki). Dane → Analiza danych → Statystyka opisowa dla kolumny wyników: dostajesz średnią, medianę, odchylenie, minimum i maksimum naraz, bez pisania osobnych formuł.`],
-"Tabele danych i scenariusze":[``,`Rata kredytu zależy od stopy. Tabela danych: w kolumnie wpisujesz stopy 2%, 3%, 4%, a obok Excel liczy ratę dla każdej naraz. Menedżer scenariuszy zapisuje warianty, np. „Optymistyczny” (sprzedaż +10%) i „Pesymistyczny” (−10%), które przełączasz jednym kliknięciem.`],
 "Wybór wykresu":[``,`Sprzedaż w 12 miesiącach → liniowy (widać trend). Sprzedaż 5 produktów w jednym miesiącu → słupkowy (porównanie). Cena i liczba sprzedanych sztuk dla 30 produktów → punktowy (czy droższe sprzedają się gorzej). Udział 3 kategorii w całości → kołowy.`],
 "Oś pomocnicza":[``,`Sprzedaż w tys. zł (100–500) i marża w % (5–15). Na jednej osi marża będzie płaską linią tuż przy zerze. Przenosisz marżę na oś pomocniczą (prawa strona): obie serie są czytelne.`],
 "Sparklines":[``,`Wiersz: produkt i sprzedaż od stycznia do czerwca w B:G. Zaznaczasz H2 → Wstawianie → Wykres przebiegu w czasie → Liniowy → zakres B2:G2. W H2 widzisz mini-linię trendu tego produktu.`],
@@ -304,6 +290,101 @@ Object.assign(EXTRA,{
 "Alt+N+V":[``,`Klikasz dowolną komórkę w danych i naciskasz kolejno Alt, N, V (jeden po drugim): otwiera się okno tabeli przestawnej. Potwierdzasz OK i przeciągasz pola do Wierszy i Wartości.`],
 "Ctrl+[":[``,`W C1 jest <code>=A1+B1</code>. Klikasz C1 i naciskasz Ctrl+[: Excel przeskakuje do A1 i B1, czyli komórek, z których formuła bierze dane. Ctrl+] robi odwrotnie: przechodzi do komórek, które używają bieżącej.`],
 "Szacuj formułę":[``,`Formuła <code>=IF(A1>5,SUM(B1:B3),0)</code>, gdzie A1 = 7, a B1:B3 = 1, 2, 3. W oknie klikasz „Oceń”: 1) A1>5 → 7>5 → PRAWDA, 2) SUM(B1:B3) → 6, 3) wynik IF → 6. Widzisz każdy krok, więc łatwo znajdziesz błąd.`]
+});
+const tb=r=>`<table class="mt">${r.map((x,i)=>`<tr>${x.map(c=>i?`<td>${c}</td>`:`<th>${c}</th>`).join('')}</tr>`).join('')}</table>`;
+const H1=t=>`<p class="st"><b>${t}</b></p>`;
+Object.assign(EXTRA,{
+"Język M":[`Power Query zapisuje każdy Twój klik jako krok w języku M – to zwykły tekst z poleceniem. „Kolumna niestandardowa” to nowa kolumna, której wartości liczy Twoja własna formuła w M. „Warunkowa” to taka, która wybiera wynik przez if / then / else.`,
+`${H1('Sytuacja')}Masz tabelę sprzedaży i chcesz dodać kolumnę „Opis”: „dużo” albo „mało”.<br>${tb([["Produkt","Ilość"],["Jabłko",20],["Gruszka",5],["Cebula",12]])}
+${H1('Kroki')}Dodaj kolumnę → Kolumna niestandardowa → nazwa „Opis” → w polu formuły wpisz: <code>if [Ilość] &gt; 10 then "dużo" else "mało"</code> → OK.<br>${tb([["Produkt","Ilość","Opis"],["Jabłko",20,"dużo"],["Gruszka",5,"mało"],["Cebula",12,"dużo"]])}
+${H1('Co to znaczy')}<code>[Ilość]</code> to wartość z kolumny Ilość w danym wierszu. <code>if … then … else</code> wybiera wynik, więc to kolumna warunkowa. Kolumna „Opis” jest niestandardowa, bo sam ją zdefiniowałeś. W pasku formuły widać też M z Twoich kliknięć, np. usuwanie powtórzeń to <code>= Table.Distinct(Źródło)</code>. Nie musisz znać M na pamięć: zwykle klikasz, a M powstaje samo.`],
+"Power Query: Merge":[`Merge łączy dwie tabele po wspólnej kolumnie (kluczu), tak jak LEFT JOIN w SQL. Wiersze bez dopasowania dostają pustą wartość (null).`,
+`${H1('Sytuacja')}Zamówienia są w jednej tabeli, a ceny w drugiej.<br>${tb([["Produkt","Ilość"],["Jabłko",10],["Gruszka",5],["Śliwka",7]])}${tb([["Produkt","Cena"],["Jabłko",3],["Gruszka",4],["Cebula",1]])}
+${H1('Kroki')}Narzędzia główne → Scal zapytania → tabela Zamówienia + tabela Ceny, klucz: „Produkt”, rodzaj: Lewe zewnętrzne → rozwiń kolumnę „Cena”.<br>${tb([["Produkt","Ilość","Cena"],["Jabłko",10,3],["Gruszka",5,4],["Śliwka",7,"null"]])}
+${H1('Co to znaczy')}Cena dopisała się do każdego zamówienia po nazwie produktu. Śliwki nie ma w cenniku, więc dostała null – to sygnał, że w cenniku brakuje pozycji. Teraz możesz dodać kolumnę <code>[Ilość] * [Cena]</code>.`],
+"Power Query: Unpivot":[`Unpivot zamienia kolumny na wiersze. Dzięki temu miesiące przestają być osobnymi kolumnami i stają się zwykłymi wartościami, które można grupować i sumować.`,
+`${H1('Przed')}${tb([["Produkt","Sty","Lut"],["Jabłko",100,120],["Gruszka",80,90]])}
+${H1('Kroki')}Zaznacz kolumnę „Produkt” → Przekształć → Anuluj przestawienie innych kolumn.<br>${H1('Po')}${tb([["Produkt","Atrybut","Wartość"],["Jabłko","Sty",100],["Jabłko","Lut",120],["Gruszka","Sty",80],["Gruszka","Lut",90]])}
+${H1('Co to znaczy')}Zamiast 2 kolumn miesięcy jest jedna kolumna „Atrybut” (nazwa miesiąca) i jedna „Wartość”. Gdy dojdzie marzec, nowy wiersz pojawi się sam, bez przebudowy tabeli. W tabeli przestawnej łatwo teraz policzyć sumę wg miesiąca.`],
+"Append":[`Append dokleja wiersze jednej tabeli pod wierszami drugiej, jak UNION w SQL. Kolumny muszą mieć te same nazwy.`,
+`${H1('Sytuacja')}Co miesiąc dostajesz osobny plik z tą samą strukturą.<br>${tb([["Miesiąc","Produkt","Ilość"],["Sty","Jabłko",10],["Sty","Gruszka",5]])}${tb([["Miesiąc","Produkt","Ilość"],["Lut","Jabłko",12],["Lut","Śliwka",7]])}
+${H1('Kroki')}Narzędzia główne → Dołącz zapytania → Dołącz jako nowe → wybierz obie tabele.<br>${tb([["Miesiąc","Produkt","Ilość"],["Sty","Jabłko",10],["Sty","Gruszka",5],["Lut","Jabłko",12],["Lut","Śliwka",7]])}
+${H1('Co to znaczy')}Dwie małe tabele (2 + 2 wiersze) stały się jedną z 4 wierszami. Z folderem plików (Pobierz dane → Z folderu) kolejne miesiące doklejają się same po odświeżeniu.`],
+"Group By":[`Group By grupuje wiersze o tej samej wartości w kolumnie i liczy dla każdej grupy sumę, średnią lub liczbę wierszy.`,
+`${H1('Przed')}${tb([["Kategoria","Ilość"],["Owoce",10],["Owoce",5],["Warzywa",8],["Owoce",7]])}
+${H1('Kroki')}Przekształć → Grupuj według → kolumna „Kategoria”; nowe kolumny: „Suma” = Suma z Ilość, „Wiersze” = Zlicz wiersze.<br>${H1('Po')}${tb([["Kategoria","Suma","Wiersze"],["Owoce",22,3],["Warzywa",8,1]])}
+${H1('Co to znaczy')}Cztery wiersze zamieniły się w dwa. Owoce: 10 + 5 + 7 = 22 z trzech wierszy, Warzywa: 8 z jednego. To ten sam efekt co tabela przestawna, ale jako krok, który powtarza się po odświeżeniu.`],
+"Czyszczenie danych":[`Każdy krok czyszczenia zapisuje się na liście „Zastosowane kroki”. Po podmianie pliku i kliknięciu Odśwież wszystkie wykonują się znowu, bez Twojej pracy.`,
+`${H1('Przed')}${tb([["Region","Nazwa","Ilość"],["Północ","  jan nowak ","10"],["null","anna kowal","5"],["Północ","","null"]])}
+${H1('Kroki')}1) Wypełnij w dół kolumnę „Region”. 2) Przekształć → Format → Przytnij oraz Każde słowo wielką literą w „Nazwa”. 3) Zmień typ „Ilość” na Liczba całkowita. 4) Usuń puste wiersze.<br>${H1('Po')}${tb([["Region","Nazwa","Ilość"],["Północ","Jan Nowak",10],["Północ","Anna Kowal",5]])}
+${H1('Co to znaczy')}Brakujący region wzięto z wiersza wyżej, spacje i wielkość liter naprawiono, a pusty wiersz zniknął. Za miesiąc wystarczy wkleić nowy plik i kliknąć Odśwież: wszystkie 4 kroki zrobią się same.`],
+"DAX: CALCULATE":[`CALCULATE najpierw zmienia filtry, a dopiero potem liczy miarę. Dzięki temu w jednej miarze możesz „zawsze brać tylko owoce”, bez względu na to, co zaznaczono na wykresie.`,
+`${H1('Dane (tabela Sprzedaz)')}${tb([["Produkt","Kategoria","Kwota"],["Jabłko","Owoce",100],["Gruszka","Owoce",50],["Marchew","Warzywa",80]])}
+${H1('Miary')}<code>Suma = SUM(Sprzedaz[Kwota])</code><br><code>Owoce = CALCULATE([Suma], Sprzedaz[Kategoria] = "Owoce")</code>
+${H1('Co to znaczy')}Na karcie bez filtrów <b>Suma = 230</b> (100 + 50 + 80), a <b>Owoce = 150</b> (100 + 50). CALCULATE dodał filtr „Kategoria = Owoce” i dopiero wtedy zsumował. Takie miary służą do porównań, np. „Owoce jako część całości”.`],
+"Model danych":[`Model danych to kilka tabel połączonych relacjami. Tabela faktów (zdarzenia, np. sprzedaż) leży w środku, a wokół niej tabele wymiarów (opisy: produkty, daty, klienci). To schemat gwiazdy.`,
+`${H1('Tabele')}Sprzedaz (fakty):${tb([["ProduktID","Kwota"],[1,100],[2,50],[1,30]])}Produkty (wymiar):${tb([["ProduktID","Nazwa"],[1,"Jabłko"],[2,"Gruszka"]])}
+${H1('Relacja')}Sprzedaz[ProduktID] → Produkty[ProduktID] (wiele do jednego).<br>${H1('Wynik na wykresie')}Oś: Produkty[Nazwa], wartość: suma Sprzedaz[Kwota].${tb([["Nazwa","Suma"],["Jabłko",130],["Gruszka",50]])}
+${H1('Co to znaczy')}Nazwa produktu jest zapisana tylko raz w tabeli Produkty, a mimo to wykres pokazuje ją przy sumach ze Sprzedaży. Relacja przenosi filtr: Jabłko = 100 + 30.`],
+"Miara a kolumna":[`Kolumna obliczeniowa liczy się raz dla każdego wiersza i zostaje zapisana w tabeli. Miara liczy się na żądanie, dla tego, co aktualnie widać na wykresie.`,
+`${H1('Dane')}${tb([["Cena","Koszt","Marża (kolumna)"],[10,6,4],[20,15,5]])}Kolumna: <code>Marża = [Cena] - [Koszt]</code> – wynik jest w każdym wierszu.
+${H1('Miara')}<code>Marża % = DIVIDE(SUM(Sprzedaz[Marża]), SUM(Sprzedaz[Cena]))</code>
+${H1('Co to znaczy')}Dla wiersza 1 jest 4/10 = 40%, dla wiersza 2 jest 5/20 = 25%, a razem 9/30 = <b>30%</b>. Gdyby zrobić z tego kolumnę i uśrednić, wyszłoby 32,5%, czyli błąd. Procenty i stosunki zawsze licz miarą, a nie kolumną.`],
+"SUMX / FILTER / ALL":[`SUMX liczy wyrażenie w każdym wierszu, a dopiero potem sumuje. FILTER zostawia tylko wiersze spełniające warunek. ALL zdejmuje filtry, więc daje „całość”.`,
+`${H1('Dane')}${tb([["Kategoria","Cena","Ilość","Kwota"],["Owoce",3,10,30],["Owoce",4,5,20],["Warzywa",2,8,16]])}
+${H1('SUMX')}<code>SUMX(Sprzedaz, Sprzedaz[Cena] * Sprzedaz[Ilość])</code> = 30 + 20 + 16 = <b>66</b>. Błędne SUM(Cena) × SUM(Ilość) dałoby 9 × 23 = 207.
+${H1('FILTER')}<code>CALCULATE([Suma], FILTER(Sprzedaz, Sprzedaz[Kwota] &gt; 18))</code> = 30 + 20 = <b>50</b>.
+${H1('ALL – udział w całości')}<code>Udział = DIVIDE([Suma], CALCULATE([Suma], ALL(Sprzedaz)))</code>. Dla Owoców: 50 / 66 ≈ <b>76%</b>. Bez ALL mianownik też byłby tylko z Owoców i dałby 100%.`],
+"RELATED / DIVIDE":[`RELATED sprowadza wartość z tabeli powiązanej relacją, jak VLOOKUP. DIVIDE dzieli i zamiast błędu #DZIEL/0! zwraca puste pole lub podaną wartość.`,
+`${H1('Dane')}${tb([["ProduktID","Kwota"],[1,100],[2,50]])}${tb([["ProduktID","Kategoria"],[1,"Owoce"],[2,"Warzywa"]])}
+${H1('RELATED')}W tabeli Sprzedaz nowa kolumna <code>Kategoria = RELATED(Produkty[Kategoria])</code>:${tb([["ProduktID","Kwota","Kategoria"],[1,100,"Owoce"],[2,50,"Warzywa"]])}
+${H1('DIVIDE')}<code>20 / 0</code> kończy się błędem. <code>DIVIDE(20, 0)</code> daje puste pole, a <code>DIVIDE(20, 0, 0)</code> daje 0. Przy procentach to chroni raport przed „#DZIEL/0!”.`],
+"Czas w DAX":[`Funkcje czasu (potrzebują tabeli Daty) liczą miarę dla innego okresu: rok wcześniej (SAMEPERIODLASTYEAR), narastająco od początku roku (TOTALYTD) lub przesuniętego (DATEADD).`,
+`${H1('Dane (suma sprzedaży wg miesiąca)')}${tb([["Miesiąc","2025","2026"],["Sty",100,120],["Lut",90,90]])}
+${H1('Miary')}<code>Teraz = SUM(Sprzedaz[Kwota])</code><br><code>Rok temu = CALCULATE([Teraz], SAMEPERIODLASTYEAR(Daty[Data]))</code><br><code>Zmiana % = DIVIDE([Teraz] - [Rok temu], [Rok temu])</code>
+${H1('Co to znaczy')}Dla stycznia 2026: Teraz = 120, Rok temu = 100, więc zmiana = <b>+20%</b>. Dla lutego: 90 vs 90 = 0%. <code>TOTALYTD([Teraz], Daty[Data])</code> w lutym 2026 pokaże narastająco 120 + 90 = <b>210</b>.`],
+"DISTINCTCOUNT":[`DISTINCTCOUNT liczy, ile jest różnych wartości w kolumnie, a nie ile jest wierszy.`,
+`${H1('Dane')}${tb([["Zamówienie","Klient"],[1,"Anna"],[2,"Jan"],[3,"Anna"],[4,"Ewa"],[5,"Anna"]])}
+${H1('Miary')}<code>Zamówienia = COUNTROWS(Sprzedaz)</code> = <b>5</b><br><code>Klienci = DISTINCTCOUNT(Sprzedaz[Klient])</code> = <b>3</b>
+${H1('Co to znaczy')}Było 5 zamówień, ale tylko 3 różnych klientów (Anna kupiła 3 razy). Dzięki temu wiesz, ilu ludzi kupuje, a nie ile razy.`],
+"LET / LAMBDA":[`LET daje nazwę wynikowi pośredniemu, żebyś nie liczył go kilka razy. LAMBDA to własna funkcja, którą możesz nazwać i używać jak SUM.`,
+`${H1('Zadanie')}Cena netto 200 zł (w A1). Dolicz VAT 23%, a potem odejmij rabat 10% od ceny brutto.
+${H1('Bez LET')}<code>=A1*1.23 - A1*1.23*0.1</code> – ten sam iloczyn A1·1,23 liczysz dwa razy.
+${H1('Z LET')}<code>=LET(brutto, A1*1.23, brutto - brutto*0.1)</code><br>brutto = 246, wynik = 246 − 24,6 = <b>221,4</b>. Formuła jest krótsza i czytelniejsza.
+${H1('LAMBDA')}<code>=LAMBDA(x, x*1.23)(200)</code> → 246. Gdy nazwiesz ją BRUTTO (Formuły → Menedżer nazw, w polu „Odwołuje się do” wpisujesz LAMBDA), używasz jej wszędzie jak zwykłej: <code>=BRUTTO(200)</code>.`],
+"MAP / REDUCE / SCAN":[`Te funkcje biorą listę i funkcję LAMBDA. MAP robi coś z każdym elementem, REDUCE zwija listę do jednej liczby, SCAN pokazuje wszystkie kroki pośrednie.`,
+`${H1('Dane')}Wpływy w A1:A4: 100, 200, 150, 50.
+${H1('MAP')}<code>=MAP(A1:A4, LAMBDA(x, x*1.23))</code> → 123, 246, 184,5, 61,5 (każdy wpływ z VAT).
+${H1('REDUCE')}<code>=REDUCE(0, A1:A4, LAMBDA(s, x, s + x))</code> → <b>500</b>. s to „suma do tej pory” (start 0), x to bieżący element.
+${H1('SCAN')}<code>=SCAN(0, A1:A4, LAMBDA(s, x, s + x))</code> → 100, 300, 450, 500: suma narastająca.
+${H1('Co to znaczy')}Wszystkie trzy używają tej samej logiki „s + x”: REDUCE oddaje tylko wynik końcowy (500), a SCAN pokazuje drogę do niego.`],
+"Spill (#)":[`Nowoczesne formuły (SORT, UNIQUE, FILTER, SEQUENCE) zwracają wiele wartości i same „rozlewają się” na sąsiednie komórki. Odwołanie z # (np. D2#) obejmuje cały ten rozlany wynik, nawet gdy jego długość się zmienia.`,
+`${H1('Dane')}W B2:B7 kategorie: Owoce, Warzywa, Owoce, Mięso, Warzywa, Owoce.
+${H1('Rozlanie')}W D2 wpisujesz <code>=SORT(UNIQUE(B2:B7))</code>. Wynik rozlewa się na D2:D4: Mięso, Owoce, Warzywa.
+${H1('Odwołanie z #')}W F2: <code>=ROWS(D2#)</code> → <b>3</b>. Gdy w danych pojawi się nowa kategoria (np. Ryby), lista urośnie do D2:D5, a F2 pokaże 4 – bez poprawiania formuły.
+${H1('Uwaga')}Jeśli któraś komórka pod D2 jest zajęta, Excel pokaże błąd <code>#ROZLANIE!</code> (#SPILL!). Wystarczy ją wyczyścić.`],
+"T.TEST / CHISQ.TEST":[`T.TEST sprawdza, czy różnica między średnimi dwóch grup jest prawdziwa, czy mogła wyjść przypadkiem. Wynik to p-value: im mniejsze, tym mniejsza szansa, że różnica to przypadek (próg zwykle 0,05).`,
+`${H1('Dane')}Oceny po teście: grupa A po szkoleniu, grupa B bez szkolenia.${tb([["Grupa A","Grupa B"],[7,6],[8,7],[9,6],[8,8],[10,7]])}Średnie: A = 8,4, B = 6,8.
+${H1('Formuła')}<code>=T.TEST(A2:A6, B2:B6, 2, 2)</code> → ok. <b>0,035</b>. Trzeci argument 2 to test dwustronny, czwarty 2 to dwie próby o równej wariancji.
+${H1('Co to znaczy')}0,035 jest mniejsze niż 0,05, więc różnica 1,6 punktu raczej nie jest przypadkowa: szkolenie najpewniej działa. Gdyby wyszło 0,40, nie mielibyśmy podstaw twierdzić, że grupy się różnią. Uwaga: p-value nie mówi, jak duża jest różnica, tylko czy jest wiarygodna.`],
+"FREQUENCY":[`FREQUENCY liczy, ile wartości wpada w kolejne przedziały (kosze). Dzięki temu robisz tabelę częstości i histogram.`,
+`${H1('Dane')}Oceny: 3, 7, 12, 18, 9, 14 w A1:A6. Kosze w C1:C3: 5, 10, 15.
+${H1('Formuła')}<code>=FREQUENCY(A1:A6, C1:C3)</code> – wynik rozlewa się na 4 komórki:${tb([["Przedział","Ile"],["do 5",1],["6–10",2],["11–15",2],["powyżej 15",1]])}
+${H1('Co to znaczy')}Kosz oznacza „do tej wartości włącznie”: w „6–10” są 7 i 9, w „11–15” są 12 i 14. Zawsze jest o jeden wynik więcej niż koszy: ostatni to „wszystko powyżej”. Suma wyników (1+2+2+1 = 6) równa się liczbie danych, co jest szybkim sprawdzeniem.`],
+"LINEST / TREND / GROWTH":[`Wszystkie trzy dopasowują krzywą do dotychczasowych danych i pozwalają prognozować. TREND zakłada stały przyrost, GROWTH stały procent wzrostu, a LINEST podaje parametry prostej.`,
+`${H1('Dane')}Sprzedaż w miesiącach 1–5:${tb([["Miesiąc","1","2","3","4","5"],["Sprzedaż",100,110,121,133,146]])}
+${H1('LINEST')}<code>=LINEST(B2:F2, B1:F1)</code> → nachylenie <b>11,5</b> i wyraz wolny <b>87,5</b>: sprzedaż = 11,5·miesiąc + 87,5.
+${H1('TREND – prognoza liniowa')}<code>=TREND(B2:F2, B1:F1, 6)</code> → 11,5·6 + 87,5 = <b>156,5</b>.
+${H1('GROWTH – prognoza wykładnicza')}<code>=GROWTH(B2:F2, B1:F1, 6)</code> → ok. <b>160,6</b>, bo dane rosną o ok. 10% miesięcznie, a nie o stałą liczbę sztuk.
+${H1('Co to znaczy')}Gdy wzrost przyspiesza (procenty), GROWTH przewiduje więcej niż TREND. Wybór zależy od tego, czy Twoje dane rosną „o tyle samo”, czy „o tyle samo procent”.`],
+"Tabela przestawna":[`Tabela przestawna sama grupuje i sumuje dane, a Ty tylko przeciągasz pola. Nie piszesz formuł, a układ możesz zmieniać w sekundę.`,
+`${H1('Dane')}${tb([["Produkt","Kategoria","Miesiąc","Ilość"],["Jabłko","Owoce","Sty",10],["Gruszka","Owoce","Sty",5],["Marchew","Warzywa","Sty",8],["Jabłko","Owoce","Lut",12],["Marchew","Warzywa","Lut",6],["Cebula","Warzywa","Lut",20]])}
+${H1('Kroki')}Kliknij w dane → Alt+N+V → OK. Przeciągnij „Kategoria” do Wierszy, „Miesiąc” do Kolumn, „Ilość” do Wartości (Suma).${tb([["","Sty","Lut","Razem"],["Owoce",15,12,27],["Warzywa",8,26,34],["Razem",23,38,61]])}
+${H1('Co to znaczy')}Na skrzyżowaniu Warzywa + Lut jest 26 (6 + 20). Zamiana Kategorii na Produkt w Wierszach pokaże ten sam podział na produkty. Po zmianie danych klikasz Odśwież (Alt+F5).`],
+"Fragmentator (Slicer)":[`Fragmentator to klikane przyciski filtrujące tabelę przestawną lub wykres. Pokazuje od razu, co jest włączone.`,
+`${H1('Sytuacja')}Masz tabelę przestawną z poprzedniego przykładu (Owoce 15 / 12, Warzywa 8 / 26).
+${H1('Kroki')}Analiza tabeli przestawnej → Wstaw fragmentator → zaznacz „Kategoria”. Pojawiają się przyciski „Owoce” i „Warzywa”.<br>Klik „Owoce”:${tb([["","Sty","Lut","Razem"],["Owoce",15,12,27]])}
+${H1('Co to znaczy')}Tabela została przefiltrowana jednym kliknięciem: widać tylko owoce. Ctrl + klik zaznacza kilka przycisków naraz, a ikona z krzyżykiem czyści filtr. Jeden fragmentator można podłączyć do wielu tabel i wykresów (Raportowanie połączeń), więc cały dashboard filtruje się naraz.`]
 });
 /* ===== Interfejs ===== */
 const $=s=>document.querySelector(s);try{['xl','xlp','xln'].forEach(k=>{localStorage.removeItem(k);sessionStorage.removeItem(k)})}catch(e){}
