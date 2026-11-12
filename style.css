@@ -41,3 +41,4 @@ th small{display:block;font-weight:400;font-size:11px;color:#555}.cap{font-size:
 .lb{background:#fff;border:1px solid var(--ln);border-radius:8px;padding:24px;max-width:380px;width:100%}.lb h2{color:var(--g)}
 .lb input{width:100%;font:inherit;padding:9px 10px;border:1px solid var(--ln);border-radius:4px;margin:6px 0}.lb input:focus{outline:2px solid var(--g)}
 .more{margin:8px 0 0}.mean{margin-top:8px;padding:8px 10px;background:var(--gl);border-radius:4px;font-size:15px}.box.ex code{font-size:14px}
+.mt{display:inline-table;margin:6px 14px 6px 0;vertical-align:top}.mt th{background:var(--gl)}.st{margin:10px 0 2px}.box.ex code{white-space:normal}
