@@ -193,22 +193,14 @@ Z(AU,"Szablony i style","Szablon (.xltx) i style komórek dają jednolity wyglą
 Z(SK,"Alt+= i Ctrl+Shift+strzałka","Alt+= robi autosumę. Ctrl+Shift+strzałka zaznacza do końca danych. Ctrl+; wstawia datę.","Co robi Alt+=?",["Filtr","Autosumę","Zapis"],1);
 Z(SK,"Alt+N+V","Wstawia tabelę przestawną.","Skrót do tabeli przestawnej?",["Alt+F4","Ctrl+Q","Alt+N+V"],2);
 Z(SK,"Ctrl+[","Przenosi do komórek, z których korzysta formuła.","Co robi Ctrl+[?",["Skacze do źródeł formuły","Kopiuje","Zamyka"],0);
-Z(SK,"Szacuj formułę","Formuły → Szacuj formułę pokazuje obliczenia krok po kroku.","Jak zobaczyć formułę krok po kroku?",["Fragmentator","Szacuj formułę","Wklej specjalnie"],1);
 Z(TE,"TODAY / NOW","TODAY – dzisiejsza data, NOW – data i godzina. Zmieniają się same.","Która funkcja zwraca też godzinę?",["TODAY","YEAR","NOW"],2);
 Z(TE,"WEEKNUM / TEXT","WEEKNUM zwraca numer tygodnia w roku. TEXT zamienia liczbę lub datę na tekst w wybranym formacie.","Co zwraca WEEKNUM?",["Numer tygodnia","Dzień tygodnia","Miesiąc"],0);
 Z(TE,"CLEAN","Usuwa niedrukowane znaki z tekstu (np. z importu).","Co robi CLEAN?",["Usuwa niedrukowane znaki","Zmienia wielkość liter","Dodaje spacje"],0);
 Z(TE,"HLOOKUP / LOOKUP","HLOOKUP szuka poziomo, w pierwszym wierszu. LOOKUP to uproszczone wyszukiwanie.","Która szuka w pierwszym wierszu?",["VLOOKUP","MATCH","HLOOKUP"],2);
 Z(TE,"OFFSET / INDIRECT","Tworzą dynamiczne odwołania, ale są lotne – przeliczają się ciągle i spowalniają plik.","Dlaczego uważać na OFFSET?",["Spowalniają plik","Nie działają","Są płatne"],0);
 Z(TE,"ROW / COLUMN / ADDRESS","ROW i COLUMN dają numer wiersza i kolumny. ADDRESS buduje adres tekstem.","Co zwraca ROW(C5)?",["3","5","C"],1);
-Z(TE,"LET / LAMBDA","LET nadaje nazwy zmiennym w formule. LAMBDA tworzy własną funkcję.","Co robi LET?",["Filtruje","Łączy teksty","Nadaje nazwy w formule"],2);
-Z(TE,"MAP / REDUCE / SCAN","Działają na tablicach z LAMBDA. REDUCE zwija tablicę do jednej wartości; BYROW, BYCOL i MAKEARRAY też.","Która zwija tablicę do jednej wartości?",["MAP","REDUCE","SEQUENCE"],1);
-Z(TE,"Spill (#)","A1# oznacza cały wynik rozlanej formuły z A1. RANDARRAY losuje liczby, WRAPROWS zawija wektor w wiersze.","Co oznacza A1#?",["Cały zakres rozlania","Błąd","Komentarz"],0);
-Z(TE,"NORM.DIST / NORM.INV","NORM.DIST – prawdopodobieństwo w rozkładzie normalnym. NORM.INV – odwrotność.","Która zwraca wartość dla danego prawdopodobieństwa?",["NORM.DIST","SUM","NORM.INV"],2);
-Z(TE,"T.TEST / CHISQ.TEST","Testy hipotez. T.TEST porównuje średnie, CHISQ.TEST – rozkłady kategorii. Wynik to p-value.","Co zwraca T.TEST?",["Średnią","p-value","Wykres"],1);
-Z(TE,"CONFIDENCE.NORM","Zwraca margines błędu do przedziału ufności.","Co oblicza CONFIDENCE.NORM?",["Sumę","Datę","Margines błędu"],2);
 Z(TE,"FREQUENCY","Zlicza, ile wartości wpada w przedziały (kosze) – podstawa histogramu.","Do czego FREQUENCY?",["Do zliczania w przedziałach","Do dat","Do tekstu"],0);
 Z(TE,"LINEST / TREND / GROWTH","LINEST – pełna regresja, TREND – prognoza liniowa, GROWTH – wykładnicza.","Która prognozuje wykładniczo?",["TREND","GROWTH","LINEST"],1);
-Z(TE,"IRR","Wewnętrzna stopa zwrotu: stopa, przy której NPV = 0.","Czym jest IRR?",["Ratą kredytu","Datą","Stopą, przy której NPV = 0"],2);
 const ORD=["Podstawy","Warunki","Tekst","Daty","Wyszukiwanie","Tablice dynamiczne","Statystyka","Finanse",P,S2,"Narzędzia",WZ,PQ,DX,AU,SK,TE];L.sort((a,b)=>ORD.indexOf(a[0])-ORD.indexOf(b[0]));
 const EXTRA={
 "NPV":[`Pieniądz dziś jest wart więcej niż ten sam pieniądz za rok (można go zainwestować). NPV „cofa” przyszłe wpływy do wartości z dzisiaj.`,`Wynik 248,69 zł: trzy wpływy po 100 zł (za 1, 2 i 3 lata) są dziś warte tylko tyle. Obliczenie: 100/1,1 + 100/1,21 + 100/1,331 ≈ 90,91 + 82,64 + 75,13. Jeśli inwestycja kosztuje mniej niż 248,69 zł, to się opłaca.`],
@@ -249,15 +241,8 @@ const EXTRA={
 "HLOOKUP / LOOKUP":[`VLOOKUP szuka w pierwszej kolumnie w dół, a HLOOKUP w pierwszym wierszu w prawo.`,`W wierszu 1 miesiące (Sty, Lut, Mar), w wierszu 2 sprzedaż (100, 120, 90).<br><code>=HLOOKUP("Lut",A1:C2,2,FALSE)</code> → 120 (znajduje „Lut” w wierszu 1 i bierze wartość z wiersza 2).`],
 "OFFSET / INDIRECT":[``,`<code>=OFFSET(A1,2,1)</code> → wartość z B3 (2 wiersze w dół i 1 kolumna w prawo od A1).<br><code>=INDIRECT("A"&amp;5)</code> → wartość z A5; adres składasz z tekstu.`],
 "ROW / COLUMN / ADDRESS":[``,`<code>=ROW(B7)</code> → 7<br><code>=COLUMN(B7)</code> → 2 (B to druga kolumna)<br><code>=ADDRESS(7,2)</code> → „$B$7”.`],
-"LET / LAMBDA":[``,`<code>=LET(x,A1*2,x+x)</code>: najpierw liczy x = A1·2, potem x+x. Dla A1 = 5: x = 10, wynik 20.<br><code>=LAMBDA(a,a*2)(5)</code> → 10 (własna funkcja „razy 2”).`],
-"MAP / REDUCE / SCAN":[``,`Dla liczb 1, 2, 3 w A1:A3:<br><code>=REDUCE(0,A1:A3,LAMBDA(s,x,s+x))</code> → 6 (0+1+2+3).<br><code>=SCAN(0,A1:A3,LAMBDA(s,x,s+x))</code> → 1, 3, 6 (suma narastająca).<br><code>=MAP(A1:A3,LAMBDA(x,x*x))</code> → 1, 4, 9.`],
-"Spill (#)":[``,`Jeśli w A1 wpiszesz <code>=SEQUENCE(5)</code>, wynik rozleje się na A1:A5. Formuła <code>=SUM(A1#)</code> zsumuje cały ten wynik (15) i dopasuje się, gdy zmienisz 5 na 10.`],
-"NORM.DIST / NORM.INV":[``,`Wzrost: średnia 170 cm, odchylenie 10 cm.<br><code>=NORM.DIST(180,170,10,TRUE)</code> → ok. 0,84: 84% osób ma do 180 cm.<br><code>=NORM.INV(0.84,170,10)</code> → ok. 180 cm (odwrotnie: dla 84% szukamy wzrostu).`],
-"T.TEST / CHISQ.TEST":[``,`Porównujesz oceny dwóch grup: <code>=T.TEST(A1:A10,B1:B10,2,2)</code> → np. 0,03. Jeśli p-value jest mniejsze niż 0,05, różnicę średnich zwykle uznaje się za istotną. Wynik 0,40 znaczyłby, że różnica może być przypadkowa.`],
-"CONFIDENCE.NORM":[``,`<code>=CONFIDENCE.NORM(0.05,10,100)</code> → ok. 1,96. Jeśli średnia z próby to 50, prawdziwa średnia leży w przedziale 50 ± 1,96, czyli od 48,04 do 51,96 (z pewnością 95%).`],
 "FREQUENCY":[``,`Wyniki: 3, 7, 12, 18. Kosze: 5, 10, 15. <code>=FREQUENCY(A1:A4,B1:B3)</code> → 1, 1, 1, 1: do 5 jest jedna wartość (3), do 10 jedna (7), do 15 jedna (12), powyżej 15 jedna (18).`],
 "LINEST / TREND / GROWTH":[``,`Sprzedaż rośnie o ok. 10 szt. co miesiąc.<br><code>=TREND(B1:B6,A1:A6,7)</code> → prognoza liniowa na miesiąc 7 (dodaje ok. 10).<br><code>=GROWTH(B1:B6,A1:A6,7)</code> → prognoza wykładnicza (mnoży, np. +10% co miesiąc).<br><code>=LINEST(B1:B6,A1:A6)</code> → nachylenie i wyraz wolny prostej.`],
-"IRR":[`NPV = 0 oznacza, że inwestycja zwraca dokładnie tyle, ile kosztuje przy danej stopie.`,`Wydajesz 1000 zł, potem dostajesz 600 zł i 600 zł: <code>=IRR({-1000,600,600})</code> → ok. 13%. Jeśli alternatywa daje mniej niż 13%, inwestycja jest opłacalna.`]
 };
 Object.assign(EXTRA,{
 "Import danych":[`Excel może sam wczytać dane z pliku lub ze strony, a potem je odświeżać.`,`Plik sprzedaz.csv: Dane → Pobierz dane → Z tekstu/CSV → wybierasz plik → Załaduj. Dane wchodzą do arkusza jako tabela. Gdy plik się zmieni, klikasz Odśwież i masz nowe dane.`],
@@ -289,7 +274,6 @@ Object.assign(EXTRA,{
 "Alt+= i Ctrl+Shift+strzałka":[``,`Kolumna liczb A2:A20. Klikasz A21 i naciskasz Alt+=: Excel wpisuje <code>=SUM(A2:A20)</code>. Ctrl+Shift+↓ z A2 zaznacza całą kolumnę danych aż do ostatniej wartości. Ctrl+; wstawia dzisiejszą datę jako stałą.`],
 "Alt+N+V":[``,`Klikasz dowolną komórkę w danych i naciskasz kolejno Alt, N, V (jeden po drugim): otwiera się okno tabeli przestawnej. Potwierdzasz OK i przeciągasz pola do Wierszy i Wartości.`],
 "Ctrl+[":[``,`W C1 jest <code>=A1+B1</code>. Klikasz C1 i naciskasz Ctrl+[: Excel przeskakuje do A1 i B1, czyli komórek, z których formuła bierze dane. Ctrl+] robi odwrotnie: przechodzi do komórek, które używają bieżącej.`],
-"Szacuj formułę":[``,`Formuła <code>=IF(A1>5,SUM(B1:B3),0)</code>, gdzie A1 = 7, a B1:B3 = 1, 2, 3. W oknie klikasz „Oceń”: 1) A1>5 → 7>5 → PRAWDA, 2) SUM(B1:B3) → 6, 3) wynik IF → 6. Widzisz każdy krok, więc łatwo znajdziesz błąd.`]
 });
 const tb=r=>`<table class="mt">${r.map((x,i)=>`<tr>${x.map(c=>i?`<td>${c}</td>`:`<th>${c}</th>`).join('')}</tr>`).join('')}</table>`;
 const H1=t=>`<p class="st"><b>${t}</b></p>`;
@@ -347,26 +331,6 @@ ${H1('Co to znaczy')}Dla stycznia 2026: Teraz = 120, Rok temu = 100, więc zmian
 `${H1('Dane')}${tb([["Zamówienie","Klient"],[1,"Anna"],[2,"Jan"],[3,"Anna"],[4,"Ewa"],[5,"Anna"]])}
 ${H1('Miary')}<code>Zamówienia = COUNTROWS(Sprzedaz)</code> = <b>5</b><br><code>Klienci = DISTINCTCOUNT(Sprzedaz[Klient])</code> = <b>3</b>
 ${H1('Co to znaczy')}Było 5 zamówień, ale tylko 3 różnych klientów (Anna kupiła 3 razy). Dzięki temu wiesz, ilu ludzi kupuje, a nie ile razy.`],
-"LET / LAMBDA":[`LET daje nazwę wynikowi pośredniemu, żebyś nie liczył go kilka razy. LAMBDA to własna funkcja, którą możesz nazwać i używać jak SUM.`,
-`${H1('Zadanie')}Cena netto 200 zł (w A1). Dolicz VAT 23%, a potem odejmij rabat 10% od ceny brutto.
-${H1('Bez LET')}<code>=A1*1.23 - A1*1.23*0.1</code> – ten sam iloczyn A1·1,23 liczysz dwa razy.
-${H1('Z LET')}<code>=LET(brutto, A1*1.23, brutto - brutto*0.1)</code><br>brutto = 246, wynik = 246 − 24,6 = <b>221,4</b>. Formuła jest krótsza i czytelniejsza.
-${H1('LAMBDA')}<code>=LAMBDA(x, x*1.23)(200)</code> → 246. Gdy nazwiesz ją BRUTTO (Formuły → Menedżer nazw, w polu „Odwołuje się do” wpisujesz LAMBDA), używasz jej wszędzie jak zwykłej: <code>=BRUTTO(200)</code>.`],
-"MAP / REDUCE / SCAN":[`Te funkcje biorą listę i funkcję LAMBDA. MAP robi coś z każdym elementem, REDUCE zwija listę do jednej liczby, SCAN pokazuje wszystkie kroki pośrednie.`,
-`${H1('Dane')}Wpływy w A1:A4: 100, 200, 150, 50.
-${H1('MAP')}<code>=MAP(A1:A4, LAMBDA(x, x*1.23))</code> → 123, 246, 184,5, 61,5 (każdy wpływ z VAT).
-${H1('REDUCE')}<code>=REDUCE(0, A1:A4, LAMBDA(s, x, s + x))</code> → <b>500</b>. s to „suma do tej pory” (start 0), x to bieżący element.
-${H1('SCAN')}<code>=SCAN(0, A1:A4, LAMBDA(s, x, s + x))</code> → 100, 300, 450, 500: suma narastająca.
-${H1('Co to znaczy')}Wszystkie trzy używają tej samej logiki „s + x”: REDUCE oddaje tylko wynik końcowy (500), a SCAN pokazuje drogę do niego.`],
-"Spill (#)":[`Nowoczesne formuły (SORT, UNIQUE, FILTER, SEQUENCE) zwracają wiele wartości i same „rozlewają się” na sąsiednie komórki. Odwołanie z # (np. D2#) obejmuje cały ten rozlany wynik, nawet gdy jego długość się zmienia.`,
-`${H1('Dane')}W B2:B7 kategorie: Owoce, Warzywa, Owoce, Mięso, Warzywa, Owoce.
-${H1('Rozlanie')}W D2 wpisujesz <code>=SORT(UNIQUE(B2:B7))</code>. Wynik rozlewa się na D2:D4: Mięso, Owoce, Warzywa.
-${H1('Odwołanie z #')}W F2: <code>=ROWS(D2#)</code> → <b>3</b>. Gdy w danych pojawi się nowa kategoria (np. Ryby), lista urośnie do D2:D5, a F2 pokaże 4 – bez poprawiania formuły.
-${H1('Uwaga')}Jeśli któraś komórka pod D2 jest zajęta, Excel pokaże błąd <code>#ROZLANIE!</code> (#SPILL!). Wystarczy ją wyczyścić.`],
-"T.TEST / CHISQ.TEST":[`T.TEST sprawdza, czy różnica między średnimi dwóch grup jest prawdziwa, czy mogła wyjść przypadkiem. Wynik to p-value: im mniejsze, tym mniejsza szansa, że różnica to przypadek (próg zwykle 0,05).`,
-`${H1('Dane')}Oceny po teście: grupa A po szkoleniu, grupa B bez szkolenia.${tb([["Grupa A","Grupa B"],[7,6],[8,7],[9,6],[8,8],[10,7]])}Średnie: A = 8,4, B = 6,8.
-${H1('Formuła')}<code>=T.TEST(A2:A6, B2:B6, 2, 2)</code> → ok. <b>0,035</b>. Trzeci argument 2 to test dwustronny, czwarty 2 to dwie próby o równej wariancji.
-${H1('Co to znaczy')}0,035 jest mniejsze niż 0,05, więc różnica 1,6 punktu raczej nie jest przypadkowa: szkolenie najpewniej działa. Gdyby wyszło 0,40, nie mielibyśmy podstaw twierdzić, że grupy się różnią. Uwaga: p-value nie mówi, jak duża jest różnica, tylko czy jest wiarygodna.`],
 "FREQUENCY":[`FREQUENCY liczy, ile wartości wpada w kolejne przedziały (kosze). Dzięki temu robisz tabelę częstości i histogram.`,
 `${H1('Dane')}Oceny: 3, 7, 12, 18, 9, 14 w A1:A6. Kosze w C1:C3: 5, 10, 15.
 ${H1('Formuła')}<code>=FREQUENCY(A1:A6, C1:C3)</code> – wynik rozlewa się na 4 komórki:${tb([["Przedział","Ile"],["do 5",1],["6–10",2],["11–15",2],["powyżej 15",1]])}
